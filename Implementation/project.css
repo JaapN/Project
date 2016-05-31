@@ -1,0 +1,38 @@
+body {
+  font: 12px sans-serif;
+  background-color: #eee;
+}
+
+#about {
+  font: 14px cambria;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.focusLine {
+    fill: none;
+    stroke: black;
+    stroke-width: 1px;
+}
+
+.focusCircle {
+    fill: limegreen;
+}
+
+.overlay {
+  fill: none;
+  stroke: none;
+  pointer-events: all;
+  stroke-width: 2px;
+}
