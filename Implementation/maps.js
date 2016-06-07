@@ -3,115 +3,6 @@
  * Jaap Nieuwenhuizen
  */
 
-/* This function receives Student Skills data input and returns the appropriate colour,
-   depending on the respective country's average student skills */
-function colorDataStuSkill(StuSkill)
-{
-  // get color for the data
-  if (StuSkill < 450)
-  {
-    return 'veryLow';
-  }
-  else if (StuSkill < 480)
-  {
-    return 'Low';
-  }
-  else if (StuSkill < 500)
-  {
-    return 'Medium';
-  }
-  else if (StuSkill < 515)
-  {
-    return 'High';
-  }
-  else if (StuSkill >= 515)
-  {
-    return 'veryHigh';
-  }
-}
-
-/* This function receives Employement Rate (%) data input and returns the appropriate colour,
-   depending on the respective country's employment rate */
-function colorDataEmploy(Employ)
-{
-  // get color for the data
-  if (Employ < 55)
-  {
-    return 'veryLow';
-  }
-  else if (Employ < 65)
-  {
-    return 'Low';
-  }
-  else if (Employ < 70)
-  {
-    return 'Medium';
-  }
-  else if (Employ < 75)
-  {
-    return 'High';
-  }
-  else if (Employ >= 75)
-  {
-    return 'veryHigh';
-  }
-}
-
-/* This function receives life satisfaction data input and returns the appropriate colour,
-   depending on the respective country's average life satisfaction */
-function colorDataSatisf(Satisf)
-{
-  // get color for the data
-  if (Satisf < 5.5)
-  {
-    return 'veryLow';
-  }
-  else if (Satisf < 6)
-  {
-    return 'Low';
-  }
-  else if (Satisf < 7)
-  {
-    return 'Medium';
-  }
-  else if (Satisf < 7.4)
-  {
-    return 'High';
-  }
-  else if (Satisf >= 7.4)
-  {
-    return 'veryHigh';
-  }
-}
-
-/* This function receives personal earning data input and returns the appropriate colour,
-   depending on the respective country's average annual personal earnings */
-function colorDataPerEarn(PerEarn)
-{
-  // get color for the data
-  if (PerEarn < 15000)
-  {
-    return 'veryLow';
-  }
-  else if (PerEarn < 25000)
-  {
-    return 'Low';
-  }
-  else if (PerEarn < 40000)
-  {
-    return 'Medium';
-  }
-  else if (PerEarn < 50000)
-  {
-    return 'High';
-  }
-  else if (PerEarn >= 50000)
-  {
-    return 'veryHigh';
-  }
-}
-
-
 // load the files
 d3_queue.queue()
   .defer(d3.json, "BLI_info.json")
@@ -128,18 +19,18 @@ d3_queue.queue()
   DatamapObject = {};
   file1.forEach(function(d) {
     if (d.indicator == "Student skills")
+    {
+      DatamapObject[d.location] =
       {
-        DatamapObject[d.location] =
-        {
-          fillKey: colorDataStuSkill(d.Value),
-          name: d.location,
-          country: d.country,
-          indicator: d.indicator,
-          student_skills: d.Value,
-          unit: d.unit
-        };
-      }
-    });
+        fillKey: colorDataStuSkill(d.Value),
+        name: d.location,
+        country: d.country,
+        indicator: d.indicator,
+        student_skills: d.Value,
+        unit: d.unit
+      };
+    }
+  });
 
   // the student skill map
   $("#WorldStuSkillMap").datamap({
@@ -165,29 +56,37 @@ d3_queue.queue()
      },
      data: DatamapObject
    });
-
-
-
+   // add interactivity to the maps
+   $("#WorldStuSkillMap").on('map-click', function(event, data) {
+       alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
+       "Country name: " + data.data.country + "\n" +
+       "Code: " + data.data.name + "\n" +
+       data.data.indicator + " (PISA score): " + data.data.student_skills + "\n" +
+       "Relative ranking: " + data.data.fillKey + "\n"
+      ); // alerts about which country you clicked on
+      // create barchart for selected country
+      getBarchart(data.data.country);
+   });
 
   /*
-  * Draw the world map by employment
-  */
+   * Draw the world map by employment
+   */
   // create a new object of the loaded data
   DatamapObject = {};
   file1.forEach(function(d) {
     if (d.indicator == "Employment rate")
+    {
+      DatamapObject[d.location] =
       {
-        DatamapObject[d.location] =
-        {
-          fillKey: colorDataEmploy(d.Value),
-          name: d.location,
-          country: d.country,
-          indicator: d.indicator,
-          employment: d.Value,
-          unit: d.unit
-        };
-      }
-    });
+        fillKey: colorDataEmploy(d.Value),
+        name: d.location,
+        country: d.country,
+        indicator: d.indicator,
+        employment: d.Value,
+        unit: d.unit
+      };
+    }
+  });
 
   // the employment rate map
   $("#WorldEmployMap").datamap({
@@ -213,29 +112,37 @@ d3_queue.queue()
      },
      data: DatamapObject
    });
-
-
-
+   // add interactivity to the maps
+   $("#WorldEmployMap").on('map-click', function(event, data) {
+       alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
+       "Country name: " + data.data.country + "\n" +
+       "Code: " + data.data.name + "\n" +
+       data.data.indicator + " (%): " + data.data.employment + "\n" +
+       "Relative ranking: " + data.data.fillKey + "\n"
+      ); // alerts about which country you clicked on
+      // create barchart for selected country
+      getBarchart(data.data.country);
+   });
 
    /*
-   * Draw the world map by satisfaction
-   */
+    * Draw the world map by satisfaction
+    */
    // create a new object of the loaded data
    DatamapObject = {};
    file1.forEach(function(d) {
      if (d.indicator == "Life satisfaction")
+     {
+       DatamapObject[d.location] =
        {
-         DatamapObject[d.location] =
-         {
-           fillKey: colorDataSatisf(d.Value),
-           name: d.location,
-           country: d.country,
-           indicator: d.indicator,
-           satisfaction: d.Value,
-           unit: d.unit
-         };
-       }
-     });
+         fillKey: colorDataSatisf(d.Value),
+         name: d.location,
+         country: d.country,
+         indicator: d.indicator,
+         satisfaction: d.Value,
+         unit: d.unit
+       };
+     }
+   });
 
    // the life satisfaction map
    $("#WorldSatisfMap").datamap({
@@ -261,9 +168,17 @@ d3_queue.queue()
       },
       data: DatamapObject
     });
-
-
-
+    // add on-click event
+    $("#WorldSatisfMap").on('map-click', function(event, data) {
+        alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
+        "Country name: " + data.data.country + "\n" +
+        "Code: " + data.data.name + "\n" +
+        data.data.indicator + " (0 - 10): " + data.data.satisfaction + "\n" +
+        "Relative ranking: " + data.data.fillKey + "\n"
+       ); // alerts about which country you clicked on
+       // create barchart for selected country
+       getBarchart(data.data.country);
+    });
 
    /*
     * Draw the world map by personal earnings
@@ -272,18 +187,18 @@ d3_queue.queue()
     DatamapObject = {};
     file1.forEach(function(d) {
       if (d.indicator == "Personal earnings")
+      {
+        DatamapObject[d.location] =
         {
-          DatamapObject[d.location] =
-          {
-            fillKey: colorDataPerEarn(d.Value),
-            name: d.location,
-            country: d.country,
-            indicator: d.indicator,
-            pEarnings: d.Value,
-            unit: d.unit
-          };
-        }
-      });
+          fillKey: colorDataPerEarn(d.Value),
+          name: d.location,
+          country: d.country,
+          indicator: d.indicator,
+          pEarnings: d.Value,
+          unit: d.unit
+        };
+      }
+    });
 
     // the personal earnings map
     $("#WorldPerEarnMap").datamap({
@@ -309,56 +224,133 @@ d3_queue.queue()
        },
        data: DatamapObject
      });
+     // add on-click event
+     $("#WorldPerEarnMap").on('map-click', function(event, data) {
+         alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
+         "Country name: " + data.data.country + "\n" +
+         "Code: " + data.data.name + "\n" +
+         data.data.indicator + " (US Dollar): " + data.data.pEarnings + "\n" +
+         "Relative ranking: " + data.data.fillKey + "\n"
+        ); // alerts about which country you clicked on
+        // create barchart for selected country
+        getBarchart(data.data.country);
+     });
 
-       // add interactivity with the maps
-       $("#WorldStuSkillMap").on('map-click', function(event, data) {
-           console.log(data);
-           alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
-           "Country name: " + data.data.country + "\n" +
-           "Code: " + data.data.name + "\n" +
-           data.data.indicator + " (PISA score): " + data.data.student_skills + "\n" +
-           "Relative ranking: " + data.data.fillKey + "\n"
-          ); // alerts about which country you clicked on
-          // create barchart for selected country
-          getBarchart(data.data.country);
-       });
-       $("#WorldEmployMap").on('map-click', function(event, data) {
-           alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
-           "Country name: " + data.data.country + "\n" +
-           "Code: " + data.data.name + "\n" +
-           data.data.indicator + " (%): " + data.data.employment + "\n" +
-           "Relative ranking: " + data.data.fillKey + "\n"
-          ); // alerts about which country you clicked on
-          // create barchart for selected country
-          getBarchart(data.data.country);
-       });
-       $("#WorldSatisfMap").on('map-click', function(event, data) {
-           alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
-           "Country name: " + data.data.country + "\n" +
-           "Code: " + data.data.name + "\n" +
-           data.data.indicator + " (0 - 10): " + data.data.satisfaction + "\n" +
-           "Relative ranking: " + data.data.fillKey + "\n"
-          ); // alerts about which country you clicked on
-          // create barchart for selected country
-          getBarchart(data.data.country);
-       });
-       $("#WorldPerEarnMap").on('map-click', function(event, data) {
-           alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
-           "Country name: " + data.data.country + "\n" +
-           "Code: " + data.data.name + "\n" +
-           data.data.indicator + " (US Dollar): " + data.data.pEarnings + "\n" +
-           "Relative ranking: " + data.data.fillKey + "\n"
-          ); // alerts about which country you clicked on
-          // create barchart for selected country
-          getBarchart(data.data.country);
-       });
-
-       /*
-        * Set maps and graphs on display:none
-        */
-       d3.select("#graph_StuSkill_Employ").style('display', "none");
-       d3.select("#WorldStuSkillMap").style('display', "none");
-       d3.select("#WorldEmployMap").style("display", "none");
-       d3.select("#WorldSatisfMap").style("display", "none");
-       d3.select("#WorldPerEarnMap").style("display", "none");
+     /*
+      * Set css for all visualisations (maps, plots and graphs) on display:none
+      */
+     d3.select("#graph_StuSkill_Employ").style('display', "none");
+     d3.select("#plot_StuSkill_Employ").style('display', "none");
+     d3.select("#WorldStuSkillMap").style('display', "none");
+     d3.select("#WorldEmployMap").style("display", "none");
+     d3.select("#WorldSatisfMap").style("display", "none");
+     d3.select("#WorldPerEarnMap").style("display", "none");
  });
+
+ /* This function receives 'Student Skills (PISA score)' data input and returns the appropriate colour,
+    depending on the respective country's average student skill score */
+ function colorDataStuSkill(StuSkill)
+ {
+   // get color for the data
+   if (StuSkill < 450)
+   {
+     return 'veryLow';
+   }
+   else if (StuSkill < 480)
+   {
+     return 'Low';
+   }
+   else if (StuSkill < 500)
+   {
+     return 'Medium';
+   }
+   else if (StuSkill < 515)
+   {
+     return 'High';
+   }
+   else if (StuSkill >= 515)
+   {
+     return 'veryHigh';
+   }
+ }
+
+ /* This function receives 'Employement Rate (%)' data input and returns the appropriate colour,
+    depending on the respective country's employment rate */
+ function colorDataEmploy(Employ)
+ {
+   // get color for the data
+   if (Employ < 55)
+   {
+     return 'veryLow';
+   }
+   else if (Employ < 65)
+   {
+     return 'Low';
+   }
+   else if (Employ < 70)
+   {
+     return 'Medium';
+   }
+   else if (Employ < 75)
+   {
+     return 'High';
+   }
+   else if (Employ >= 75)
+   {
+     return 'veryHigh';
+   }
+ }
+
+ /* This function receives 'Life Satisfaction (0-10)' data input and returns the appropriate colour,
+    depending on the respective country's average life satisfaction */
+ function colorDataSatisf(Satisf)
+ {
+   // get color for the data
+   if (Satisf < 5.5)
+   {
+     return 'veryLow';
+   }
+   else if (Satisf < 6)
+   {
+     return 'Low';
+   }
+   else if (Satisf < 7)
+   {
+     return 'Medium';
+   }
+   else if (Satisf < 7.4)
+   {
+     return 'High';
+   }
+   else if (Satisf >= 7.4)
+   {
+     return 'veryHigh';
+   }
+ }
+
+ /* This function receives 'Personal Earnings (USD)' data input and returns the appropriate colour,
+    depending on the respective country's average annual personal earnings */
+ function colorDataPerEarn(PerEarn)
+ {
+   // get color for the data
+   if (PerEarn < 15000)
+   {
+     return 'veryLow';
+   }
+   else if (PerEarn < 25000)
+   {
+     return 'Low';
+   }
+   else if (PerEarn < 40000)
+   {
+     return 'Medium';
+   }
+   else if (PerEarn < 50000)
+   {
+     return 'High';
+   }
+   else if (PerEarn >= 50000)
+   {
+     return 'veryHigh';
+   }
+ }

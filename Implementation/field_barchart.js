@@ -3,51 +3,57 @@
  * Jaap Nieuwenhuizen
  */
 
+// draws a barchart of the educational field distribution of the respective country
 function getBarchart(country)
 {
-    var margin = {top: 20, right: 30, bottom: 30, left: 40},
-        width = 1170 - margin.left - margin.right,
-        height = 800 - margin.top - margin.bottom;
+    // clear the previous barchart
+    $("#barchart").empty();
 
+    // define margins
+    var margin = {top: 20, right: 30, bottom: 100, left: 250},
+        width = 1150 - margin.left - margin.right,
+        height = 700 - margin.top - margin.bottom;
+
+    // define x-axis
     var x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .1);
-
-    var y = d3.scale.linear()
-        .range([height, 0]);
 
     var xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom");
 
+    // define y-axis
+    var y = d3.scale.linear()
+        .range([height, 0]);
+
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left")
-        .ticks(30);
+        .ticks(20);
 
+    // initialise barchart
     var barchart = d3.select("#barchart")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    // define tooltip
     var tip = d3.tip()
         .attr('class', 'd3-tip')
         .offset([-10, 0])
         .html(function(d) {
-          return "<strong>Percentage:</strong> <span style='color:red'>" + +d.percentage + "</span>";
+          return "<strong>Percentage:</strong> <span style='color:red'>" + d.percentage + "</span>";
     });
-
     barchart.call(tip);
 
     // load the data
     d3.json('fields_grad_info.json',
     function(error, data) {
-      if (error)
-      {
-        throw error;
-      }
+      if (error) { throw error; }
       data = data.points;
 
+      // extract the relevant variables to a newly defined object
       barchartObject = [];
       data.forEach(function(d) {
           if (d.country == country)
@@ -60,14 +66,20 @@ function getBarchart(country)
           }
       });
 
+      // define the x and y domains
       x.domain(barchartObject.map(function(d) { return d.field; }));
-      y.domain([0, d3.max(barchartObject, function(d) { return d.percentage; })]);
+      y.domain([0, d3.max(barchartObject, function(d) { return +d.percentage; })]);
 
       // x-axis
       barchart.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
-          .call(xAxis);
+          .call(xAxis)
+          .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.5em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-20)");
 
       // y-axis
       barchart.append("g")
@@ -76,9 +88,9 @@ function getBarchart(country)
         .append("text")
           .attr("transform", "rotate(-90)")
           .attr("y", 6)
-          .attr("dy", ".71em")
+          .attr("dy", "-3em")
           .style("text-anchor", "end")
-          .style("font", "24px sans-serif")
+          .style("font", "18px sans-serif")
           .text("Educational graduate field distribution of " + country);
 
       // create rectangles
@@ -90,7 +102,7 @@ function getBarchart(country)
           .attr("class", "bar")
           .attr("x", function(d) { return x(d.field); })
           .attr("y", function(d) { return y(d.percentage); })
-          .attr("height", function(d) { return height - y(d.percentage); })
+          .attr("height", function(d) { return height - y(+d.percentage); })
           .attr("width", x.rangeBand())
           .on('mouseover', tip.show)
           .on('mouseout', tip.hide);
@@ -104,10 +116,19 @@ function getBarchart(country)
           .attr("class", "label")
           .attr("transform", function(d) { return "translate(" + x(d.field) + ",0)"; })
           .attr("x", x.rangeBand() / 2)
-          .attr("y", function(d) { return y(d.percentage) + 3; })
-          .attr("dy", "1em")
+          .attr("y", function(d) { return y(+d.percentage) - 5; })
+          .attr("dy", "0.1em")
           .text(function(d) { return d.percentage; });
-    });
 
-    d3.select("#barchart").style("display", "");
+      // change display depending on the availability of data
+      if (barchartObject[0] != undefined && barchartObject[0].percentage != "")
+      {
+        d3.select("#barchart").style("display", "")
+      }
+      else
+      {
+        d3.select("#barchart").style("display", "none");
+        return "Sorry! There is no data for this country!"
+      }
+    });
 }

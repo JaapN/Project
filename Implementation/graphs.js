@@ -33,9 +33,9 @@ d3_queue.queue()
         }
     });
 
-    var margin = {top: 50, right: 250, bottom: 50, left: 50},
-        width = 1160 - margin.left - margin.right,
-        height = 700 - margin.top - margin.bottom;
+    var margin = {top: 50, right: 220, bottom: 50, left: 50},
+        width = 1150 - margin.left - margin.right,
+        height = 550 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
         .range([0, width]);
@@ -87,8 +87,8 @@ d3_queue.queue()
         .call(xAxis)
       .append("text")
         .attr("transform", "rotate(0)")
-        .attr("y", 0)
-        .attr("x", 1060)
+        .attr("y", -10)
+        .attr("x", 1050)
         .attr("dy", "0em")
         .attr("dx", "-.50em")
         .style("text-anchor", "end")
@@ -121,7 +121,7 @@ d3_queue.queue()
 
     points.append("svg:circle")
        .attr("stroke", "red")
-       .attr("fill", function(d, i) { return "white" })
+       .attr("fill", "white")
        .attr("cx", function(d, i) { return x(+d.StuSkill) })
        .attr("cy", function(d, i) { return y(+d.Employ) })
        .attr("r", function(d, i) { return 4 })
@@ -141,7 +141,7 @@ d3_queue.queue()
         .attr('r', 4)
         .attr('class', 'circle focusCircle');
 
-    var bisectDate = d3.bisector(function(d) { return +d.StuSkill; }).left;
+    var bisectX = d3.bisector(function(d) { return +d.StuSkill; }).left;
 
     svg.append('rect')
         .attr('class', 'overlay')
@@ -154,7 +154,7 @@ d3_queue.queue()
             var mouseX = x.invert(mouse[0]);
 
             // file 1
-            var i = bisectDate(graphObject, mouseX); // returns the index to the current data item
+            var i = bisectX(graphObject, mouseX); // returns the index to the current data item
 
             var d0 = graphObject[i - 1]
             var d1 = graphObject[i];
