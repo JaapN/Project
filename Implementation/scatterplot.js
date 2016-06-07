@@ -43,7 +43,7 @@ d3_queue.queue()
     });
 
     // define margins
-    var margin = {top: 20, right: 250, bottom: 50, left: 20},
+    var margin = {top: 40, right: 250, bottom: 50, left: 40},
         width = 1150 - margin.left - margin.right,
         height = 550 - margin.top - margin.bottom;
 
@@ -70,7 +70,7 @@ d3_queue.queue()
     y.domain(yDomain);
 
     // initialise scatterplot
-    var plot = d3.select("#plot_StuSkill_Employ").append("svg")
+    var plot = d3.select("#plotStuSkillEmploy").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .attr('class', 'chart')
@@ -79,7 +79,6 @@ d3_queue.queue()
 
     // main canvas
     var main = plot.append('g')
-      	.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
       	.attr('width', width)
       	.attr('height', height)
       	.attr('class', 'main');

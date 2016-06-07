@@ -33,11 +33,12 @@ d3_queue.queue()
   });
 
   // the student skill map
-  $("#WorldStuSkillMap").datamap({
+  $("#worldStuSkillMap").datamap({
      scope: 'world',
      geography_config: {
+       backgroundColor: '#006994',
        borderColor: 'rgba(0,0,0,0.5)',
-       HighlightBorderColor: 'rgba(0,255,255,1)',
+       highlightBorderColor: 'rgba(0,255,255,1)',
        popupTemplate: _.template([
          '<div class="hoverinfo">',
          '<strong><%= geography.properties.name %></strong>',
@@ -57,7 +58,7 @@ d3_queue.queue()
      data: DatamapObject
    });
    // add interactivity to the maps
-   $("#WorldStuSkillMap").on('map-click', function(event, data) {
+   $("#worldStuSkillMap").on('map-click', function(event, data) {
        alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
        "Country name: " + data.data.country + "\n" +
        "Code: " + data.data.name + "\n" +
@@ -89,11 +90,12 @@ d3_queue.queue()
   });
 
   // the employment rate map
-  $("#WorldEmployMap").datamap({
+  $("#worldEmployMap").datamap({
      scope: 'world',
      geography_config: {
+       backgroundColor: '#006994',
        borderColor: 'rgba(0,0,0,0.5)',
-       HighlightBorderColor: 'rgba(0,255,255,1)',
+       highlightBorderColor: 'rgba(0,255,255,1)',
        popupTemplate: _.template([
          '<div class="hoverinfo">',
          '<strong><%= geography.properties.name %></strong>',
@@ -113,7 +115,7 @@ d3_queue.queue()
      data: DatamapObject
    });
    // add interactivity to the maps
-   $("#WorldEmployMap").on('map-click', function(event, data) {
+   $("#worldEmployMap").on('map-click', function(event, data) {
        alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
        "Country name: " + data.data.country + "\n" +
        "Code: " + data.data.name + "\n" +
@@ -145,11 +147,12 @@ d3_queue.queue()
    });
 
    // the life satisfaction map
-   $("#WorldSatisfMap").datamap({
+   $("#worldSatisfMap").datamap({
       scope: 'world',
       geography_config: {
+        backgroundColor: '#006994',
         borderColor: 'rgba(0,0,0,0.5)',
-        HighlightBorderColor: 'rgba(0,255,255,1)',
+        highlightBorderColor: 'rgba(0,255,255,1)',
         popupTemplate: _.template([
           '<div class="hoverinfo">',
           '<strong><%= geography.properties.name %></strong>',
@@ -169,7 +172,7 @@ d3_queue.queue()
       data: DatamapObject
     });
     // add on-click event
-    $("#WorldSatisfMap").on('map-click', function(event, data) {
+    $("#worldSatisfMap").on('map-click', function(event, data) {
         alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
         "Country name: " + data.data.country + "\n" +
         "Code: " + data.data.name + "\n" +
@@ -201,11 +204,12 @@ d3_queue.queue()
     });
 
     // the personal earnings map
-    $("#WorldPerEarnMap").datamap({
+    $("#worldPerEarnMap").datamap({
        scope: 'world',
        geography_config: {
+         backgroundColor: '#006994',
          borderColor: 'rgba(0,0,0,0.5)',
-         HighlightBorderColor: 'rgba(0,255,255,1)',
+         highlightBorderColor: 'rgba(0,255,255,1)',
          popupTemplate: _.template([
            '<div class="hoverinfo">',
            '<strong><%= geography.properties.name %></strong>',
@@ -225,7 +229,7 @@ d3_queue.queue()
        data: DatamapObject
      });
      // add on-click event
-     $("#WorldPerEarnMap").on('map-click', function(event, data) {
+     $("#worldPerEarnMap").on('map-click', function(event, data) {
          alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
          "Country name: " + data.data.country + "\n" +
          "Code: " + data.data.name + "\n" +
@@ -239,12 +243,12 @@ d3_queue.queue()
      /*
       * Set css for all visualisations (maps, plots and graphs) on display:none
       */
-     d3.select("#graph_StuSkill_Employ").style('display', "none");
-     d3.select("#plot_StuSkill_Employ").style('display', "none");
-     d3.select("#WorldStuSkillMap").style('display', "none");
-     d3.select("#WorldEmployMap").style("display", "none");
-     d3.select("#WorldSatisfMap").style("display", "none");
-     d3.select("#WorldPerEarnMap").style("display", "none");
+     d3.select("#graphStuSkillEmploy").style('display', "none");
+     d3.select("#plotStuSkillEmploy").style('display', "none");
+     d3.select("#worldStuSkillMap").style('display', "none");
+     d3.select("#worldEmployMap").style("display", "none");
+     d3.select("#worldSatisfMap").style("display", "none");
+     d3.select("#worldPerEarnMap").style("display", "none");
  });
 
  /* This function receives 'Student Skills (PISA score)' data input and returns the appropriate colour,

@@ -22,9 +22,11 @@
     <link rel="stylesheet" type="text/css" href="project.css"/>
     <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
 
-    <div id='title'>
-      <font face='cambria' size='7'>Exploration of educational graduate field distribution by mapping of Better Life Index variables (average student skills, employment rate, personal earnings and life satisfaction)</font>
-    </div>
+    <header id="header">
+      <div id='title'>
+        <h1>Exploration of educational graduate field distribution by mapping of Better Life Index variables (average student skills, employment rate, personal earnings and life satisfaction)</h1>
+      </div>
+    </header>
 
     <div id='menu'>
       <br>
@@ -40,19 +42,20 @@
       <div class="dropdown">
         <button class="dropbtn">Graphs and Scatterplots</button>
         <div class="dropdown-content">
-          <button onclick="graph_StuSkill_Employ()">Graph: Student Skills against Employment Rate</button></li>
-          <button onclick="plot_StuSkill_Employ()">Plot: Student Skills against Employment Rate</button></li>
+          <button onclick="graphStuSkillEmploy()">Graph: Student Skills against Employment Rate</button>
+          <button onclick="plotStuSkillEmploy()">Plot: Student Skills against Employment Rate</button>
         </div>
       </div>
+      <br></br>
     </div>
     <br>
 
-    <div id="WorldStuSkillMap"><b>Student Skills (PISA) Map</b></div>
-    <div id="WorldEmployMap"><b>Employment Rate (%) Map</b></div>
-    <div id="WorldSatisfMap"><b>Life Satisfaction (0 - 10) Map</b></div>
-    <div id="WorldPerEarnMap"><b>Personal Earnings (annual, US Dollar) Map</b></div>
-    <div id="graph_StuSkill_Employ"><b>Graph of Student Skills (PISA score) against Employment Rate (%)</b><br></div>
-    <div id="plot_StuSkill_Employ"><b>Plot of Student Skills (PISA score) against Employment Rate (%)</b><br></div>
+    <div id="worldStuSkillMap"><b>Student Skills (PISA) Map</b></div>
+    <div id="worldEmployMap"><b>Employment Rate (%) Map</b></div>
+    <div id="worldSatisfMap"><b>Life Satisfaction (0 - 10) Map</b></div>
+    <div id="worldPerEarnMap"><b>Personal Earnings (annual, US Dollar) Map</b></div>
+    <div id="graphStuSkillEmploy"><b>Graph of Student Skills (PISA score) against Employment Rate (%)</b><br></div>
+    <div id="plotStuSkillEmploy"><b>Plot of Student Skills (PISA score) against Employment Rate (%)</b><br></div>
     <br>
 
     <svg class="graph" id="barchart" style="display:none"></svg>
@@ -64,9 +67,9 @@
     </div>
 
     <div id='about'>
-      <b>Data:</b> <font color="blue">http://stats.oecd.org/Index.aspx?DataSetCode=BLI</font><br>
-      <b>Map:</b> <font color="blue">https://github.com/tillnagel/unfolding/blob/master/data/data/countries-population-density.csv</font><br>
-      <b>Colour schemes:</b> <font color="blue">http://colorbrewer2.org/</font>
+      <b>Data:</b> <a href="http://stats.oecd.org/Index.aspx?DataSetCode=BLI"><font color="blue">http://stats.oecd.org/Index.aspx?DataSetCode=BLI</font></a><br>
+      <b>Map:</b> <a href="https://github.com/tillnagel/unfolding/blob/master/data/data/countries-population-density.csv"><font color="blue">https://github.com/tillnagel/unfolding/blob/master/data/data/countries-population-density.csv</font></a><br>
+      <b>Colour Schemes:</b> <a href="http://colorbrewer2.org/"><font color="blue">http://colorbrewer2.org/</font></a>
       <br></br>
 
       When scrolling over a country on the map, information about the country name and data will pop up.<br>
@@ -74,7 +77,7 @@
 
       Click on a country to draw and display the respective educational field distribution barchart below the map. Do note however that data about educational field distribution is not available for all countries, even those for which there is data to colour the respective country with.<br><br>
 
-      - See more at: <font color="blue">http://stats.oecd.org/Index.aspx?DataSetCode=BLI</font><br>
+      - See more at: <a href="http://stats.oecd.org/Index.aspx?DataSetCode=BLI"><font color="blue">http://stats.oecd.org/Index.aspx?DataSetCode=BLI</font></a><br>
       'Education and Training' (share of graduates per field) and 'Social Protection and Well-Being' (Better Life Index).<br>
       The data for the educational graduate field distribution is from 2013. The data for the Better Life Index variables is from 2009.
     </div>

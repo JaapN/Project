@@ -22,6 +22,12 @@ function getBarchart(country)
         .scale(x)
         .orient("bottom");
 
+    // define separator and colour panel
+    var x1 = d3.scale.ordinal();
+
+    var color = d3.scale.ordinal()
+        .range(["#98abc5", "#ff8c00"]);
+
     // define y-axis
     var y = d3.scale.linear()
         .range([height, 0]);
@@ -38,7 +44,7 @@ function getBarchart(country)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    // define tooltip
+    // define and initialise tooltip
     var tip = d3.tip()
         .attr('class', 'd3-tip')
         .offset([-10, 0])
@@ -65,6 +71,39 @@ function getBarchart(country)
               });
           }
       });
+
+      /*
+      averagePerc = {
+        Teacher training and education science: "",
+        Arts: [],
+        Humanities: [],
+        Social and behavioural science: [],
+        Journalism and information: [],
+        Business and administration: [],
+        Law: [],
+        Life science: [],
+        Physical science: [],
+        Mathematics and statistics: [],
+        Computing: [],
+        Engineering and engineering trades: [],
+        Manufacturing and processing: [],
+        Architecture and building: [],
+        Agriculture, forestry and fishery: [],
+        Veterinary: [],
+        Health: [],
+        Social services: [],
+        Personal services: [],
+        Transport services: [],
+        Environmental protection: [],
+        Security services: []
+      };
+      */
+
+      averagePerc = {};
+      data.forEach(function(d) {
+          averagePerc[d.field] += d.Value;
+      });
+      console.log(averagePerc);
 
       // define the x and y domains
       x.domain(barchartObject.map(function(d) { return d.field; }));

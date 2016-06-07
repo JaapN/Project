@@ -1,21 +1,52 @@
 /*
- * HTML CSS
- */
+* HTML CSS
+*/
+#header {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 130px;
+  overflow: hidden; /* Disables scrollbars on the header frame. To enable scrollbars, change "hidden" to "scroll" */
+  background: #BCCE98;
+}
+
+#title {
+  font: 14px cambria;
+  padding: 10px;
+}
+
 body {
   font: 12px sans-serif;
   background-color: #eee;
+  margin: 15px;
+}
+
+#menu {
+  background: #DAE9BC;
+}
+
+.name {
 }
 
 #about {
   font: 14px cambria;
 }
 
-#WorldStuSkillMap, #WorldEmployMap, #WorldSatisfMap, #WorldPerEarnMap, #graph_StuSkill_Employ {
+#worldStuSkillMap, #worldEmployMap, #worldSatisfMap, #worldPerEarnMap {
   height: 550px;
   width: 1150px;
   text-align: center;
   font: cambria;
   font-size: 16px;
+}
+
+#graphStuSkillEmploy, #plotStuSkillEmploy {
+  height: 550px;
+  width: 1150px;
+  text-align: center;
+  font: sans-serif;
+  font-size: 14px;
 }
 
 /*
@@ -35,6 +66,7 @@ body {
  .dropdown {
      position: relative;
      display: inline-block;
+     margin-left: 10px;
  }
 
  /* Dropdown Content (Hidden by Default) */
@@ -47,7 +79,7 @@ body {
  }
 
  /* Links inside the dropdown */
- .dropdown-content a {
+ .dropdown-content button {
      color: black;
      padding: 12px 16px;
      text-decoration: none;
@@ -55,14 +87,16 @@ body {
  }
 
  /* Change color of dropdown links on hover */
- .dropdown-content a:hover {background-color: #f1f1f1}
+ .dropdown-content button:hover {
+   background-color: #f1f1f1
+ }
 
  /* Show the dropdown menu on hover */
  .dropdown:hover .dropdown-content {
      display: block;
  }
 
- /* Change the background color of the dropdown button when the dropdown content is shown */
+ /* Change the background color of the dropdown button when the dropdown content is shown (does not work) */
  .dropdown:hover .dropbtn {
      background-color: #3e8e41;
  }

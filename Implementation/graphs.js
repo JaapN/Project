@@ -61,7 +61,7 @@ d3_queue.queue()
         .x(function(d) { return x(+d.StuSkill); })
         .y(function(d) { return y(+d.Employ); });
 
-    var svg = d3.select("#graph_StuSkill_Employ").append("svg")
+    var svg = d3.select("#graphStuSkillEmploy").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
