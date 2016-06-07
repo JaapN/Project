@@ -198,17 +198,18 @@ d3_queue.queue()
     /*
      * Draw a regression line
      */
-    // obtain slope, intercept and rSquare
+    // obtain series for x and y
     var xSeries = plotObject.map(function(d) { return parseFloat(+d.StuSkill); });
     var ySeries = plotObject.map(function(d) { return parseFloat(+d.Employ); });
 
+    // obtain slope, intercept and rSquared
 		var leastSquaresCoeff = leastSquares(xSeries, ySeries);
 
 		// apply the results of the least squares regression
 		var x1 = xSeries[0];
-		var y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
+		var y1 = leastSquaresCoeff.intercept;
 		var x2 = xSeries[xSeries.length - 1];
-		var y2 = leastSquaresCoeff[0] * xSeries.length + leastSquaresCoeff[1];
+		var y2 = leastSquaresCoeff.slope * xSeries.length + leastSquaresCoeff.intercept;
 		var trendData = [[x1,y1,x2,y2]];
 
     // define the regression line
@@ -244,24 +245,36 @@ d3_queue.queue()
 
 	// returns slope, intercept and r-square of the line
 	function leastSquares(xSeries, ySeries) {
-		var reduceSumFunc = function(prev, cur) { return prev + cur; };
+    // define function necessary for calculating averages
+    var reduceSumFunc = function(prev, cur) { return prev + cur; };
 
+    // calculate averages
 		var xBar = xSeries.reduce(reduceSumFunc) * 1.0 / xSeries.length;
 		var yBar = ySeries.reduce(reduceSumFunc) * 1.0 / ySeries.length;
 
+    // calculate the total sum of squares for x
 		var ssXX = xSeries.map(function(d) { return Math.pow(d - xBar, 2); })
 			.reduce(reduceSumFunc);
 
+    // calculate the total sum of squares for y
 		var ssYY = ySeries.map(function(d) { return Math.pow(d - yBar, 2); })
 			.reduce(reduceSumFunc);
 
+    // calculate sum of the products of residuals (numerator of covariance)
 		var ssXY = xSeries.map(function(d, i) { return (d - xBar) * (ySeries[i] - yBar); })
 			.reduce(reduceSumFunc);
 
+    // calculate slope, intercept and rSquared
 		var slope = ssXY / ssXX;
 		var intercept = yBar - (xBar * slope);
-		var rSquare = Math.pow(ssXY, 2) / (ssXX * ssYY);
+		var rSquared = Math.pow(ssXY, 2) / (ssXX * ssYY);
 
-		return [slope, intercept, rSquare];
+    // convert to dictionary
+    var linearModel = {};
+    linearModel['slope'] = slope;
+    linearModel['intercept'] = intercept;
+    linearModel['rSquared'] = rSquared;
+
+		return linearModel;
 	}
 });
