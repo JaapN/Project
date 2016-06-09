@@ -14,10 +14,10 @@
     <script src="https://d3js.org/d3-queue.v2.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script src="maps.js"></script>
-    <script src="menu.js"></script>
     <script src="graphs.js"></script>
     <script src="field_barchart.js"></script>
     <script src="scatterplot.js"></script>
+    <script src="menu.js"></script>
     <script src="d3tip_library_index.js"></script>
     <link rel="stylesheet" type="text/css" href="project.css"/>
     <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
@@ -27,6 +27,14 @@
         <h1>Exploration of educational graduate field distribution by mapping of Better Life Index variables (average student skills, employment rate, personal earnings and life satisfaction)</h1>
       </div>
     </header>
+
+    <div id="worldStuSkillMap"><br><b>Student Skills (PISA) Map</b></div>
+    <div id="worldEmployMap"><br><b>Employment Rate (%) Map</b></div>
+    <div id="worldSatisfMap"><br><b>Life Satisfaction (0 - 10) Map</b></div>
+    <div id="worldPerEarnMap"><br><b>Personal Earnings (annual, US Dollar) Map</b></div>
+    <div id="graphStuSkillEmploy"><b>Graph of Student Skills (PISA score) against Employment Rate (%)</b><br></div>
+    <div id="scatterplot"><br></div>
+    <br>
 
     <div id='menu'>
       <br>
@@ -40,24 +48,26 @@
         </div>
       </div>
       <div class="dropdown">
-        <button class="dropbtn">Graphs and Scatterplots</button>
+        <button class="dropbtn">Scatterplots</button>
         <div class="dropdown-content">
-          <button onclick="graphStuSkillEmploy()">Graph: Student Skills against Employment Rate</button>
-          <button onclick="plotStuSkillEmploy()">Plot: Student Skills against Employment Rate</button>
+          <button onclick="plotStuSkillEmploy()">Student skills - Employment rate</button>
+          <button onclick="plotStuSkillPerEarn()">Student skills - Personal earnings</button>
+          <button onclick="plotStuSkillSatisf()">Student skills - Life satisfaction</button>
+          <button onclick="plotSatisfPerEarn()">Life Satisfaction - Personal earnings</button>
+          <button onclick="plotEmploySatisf()">Employment rate - Life satisfaction</button>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn">Graphs</button>
+        <div class="dropdown-content">
+          <button onclick="graphStuSkillEmploy()">Student skills - Employment rate</button>
         </div>
       </div>
       <br></br>
     </div>
     <br>
 
-    <div id="worldStuSkillMap"><b>Student Skills (PISA) Map</b></div>
-    <div id="worldEmployMap"><b>Employment Rate (%) Map</b></div>
-    <div id="worldSatisfMap"><b>Life Satisfaction (0 - 10) Map</b></div>
-    <div id="worldPerEarnMap"><b>Personal Earnings (annual, US Dollar) Map</b></div>
-    <div id="graphStuSkillEmploy"><b>Graph of Student Skills (PISA score) against Employment Rate (%)</b><br></div>
-    <div id="plotStuSkillEmploy"><b>Plot of Student Skills (PISA score) against Employment Rate (%)</b><br></div>
-    <br>
-
+    <div id="noData"></div>
     <svg class="graph" id="barchart" style="display:none"></svg>
 
     <div class="name">

@@ -244,7 +244,7 @@ d3_queue.queue()
       * Set css for all visualisations (maps, plots and graphs) on display:none
       */
      d3.select("#graphStuSkillEmploy").style('display', "none");
-     d3.select("#plotStuSkillEmploy").style('display', "none");
+     d3.select("#scatterplot").style('display', "none");
      d3.select("#worldStuSkillMap").style('display', "none");
      d3.select("#worldEmployMap").style("display", "none");
      d3.select("#worldSatisfMap").style("display", "none");

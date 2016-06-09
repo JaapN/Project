@@ -56,7 +56,7 @@ function getBarchart(country)
     // load the data
     d3.json('fields_grad_info.json',
     function(error, data) {
-      if (error) { throw error; }
+      if (error) throw error("Error: the file did not load!");
       data = data.points;
 
       // extract the relevant variables to a newly defined object
@@ -167,7 +167,7 @@ function getBarchart(country)
       else
       {
         d3.select("#barchart").style("display", "none");
-        return "Sorry! There is no data for this country!"
+        d3.select("#noData").html("<font size='14px'><center><b>Sorry! There is no data for this country!</b></center></font>");
       }
     });
 }

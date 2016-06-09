@@ -24,6 +24,7 @@ body {
 
 #menu {
   background: #DAE9BC;
+  position: relative;
 }
 
 .name {
@@ -35,15 +36,16 @@ body {
 
 #worldStuSkillMap, #worldEmployMap, #worldSatisfMap, #worldPerEarnMap {
   height: 550px;
-  width: 1150px;
+  width: 1180px;
   text-align: center;
   font: cambria;
   font-size: 16px;
+  background-color: '#006994';
 }
 
-#graphStuSkillEmploy, #plotStuSkillEmploy {
+#graphStuSkillEmploy, #scatterplot {
   height: 550px;
-  width: 1150px;
+  width: 1180px;
   text-align: center;
   font: sans-serif;
   font-size: 14px;
@@ -81,7 +83,7 @@ body {
  /* Links inside the dropdown */
  .dropdown-content button {
      color: black;
-     padding: 12px 16px;
+     padding: 0px 0px;
      text-decoration: none;
      display: block;
  }

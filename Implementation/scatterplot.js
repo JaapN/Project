@@ -4,46 +4,29 @@
  */
 
 /*
- * Graph student skills on the x-axis against employment on the y-axis
+ * Plot variableX on the x-axis against variableY on the y-axis
  */
-// load the files
-d3_queue.queue()
- .defer(d3.json, "BLI_info.json")
- .defer(d3.json, "fields_grad_info.json")
- .await(function(error, file1, file2) {
-    if (error) throw error("Error: the files did not load!");
-    file1 = file1.points;
-    file2 = file2.points;
-
-    // extract the relevant variables to a newly defined object
+function createPlot(variableX, variableY, textX, textY)
+{
+    // extract the relevant variables to a newly defined object with generic names
     plotObject = [];
-    counter = 0;
-    file1.forEach(function(d) {
-        // add new employment rate entries
-        if (d.indicator == "Employment rate")
+    for(var i = 0; i < variableX.length; i++)
+    {
+        plotObject.push(
         {
-            plotObject.push(
-            {
-              Employ: d.Value,
-              StuSkill: undefined
-            });
-        }
-        // adjust value student skills
-        else if (d.indicator == "Student skills")
-        {
-            plotObject[counter].StuSkill = d.Value;
-            counter++;
-        }
-    });
+          variableX: variableX[i],
+          variableY: variableY[i]
+        });
+    };
 
     // sort the x-axis ascendingly
     plotObject.sort(function(x, y)
     {
-        return d3.ascending(x.StuSkill, y.StuSkill);
+        return d3.ascending(x.variableX, y.variableX);
     });
 
     // define margins
-    var margin = {top: 40, right: 250, bottom: 50, left: 40},
+    var margin = {top: 40, right: 250, bottom: 50, left: 70},
         width = 1150 - margin.left - margin.right,
         height = 550 - margin.top - margin.bottom;
 
@@ -64,13 +47,13 @@ d3_queue.queue()
             .orient('left');
 
     // define domains
-    xDomain = d3.extent(plotObject, function(d) { return +d.StuSkill; });
-    yDomain = d3.extent(plotObject, function(d) { return +d.Employ; });
+    xDomain = d3.extent(plotObject, function(d) { return +d.variableX; });
+    yDomain = d3.extent(plotObject, function(d) { return +d.variableY; });
     x.domain(xDomain);
     y.domain(yDomain);
 
     // initialise scatterplot
-    var plot = d3.select("#plotStuSkillEmploy").append("svg")
+    var plot = d3.select("#scatterplot").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .attr('class', 'chart')
@@ -91,12 +74,12 @@ d3_queue.queue()
         .append("text")
           .attr("transform", "rotate(0)")
           .attr("y", -10)
-          .attr("x", 1050)
+          .attr("x", 840)
           .attr("dy", "0em")
           .attr("dx", "-.50em")
           .style("text-anchor", "end")
           .style("font", "16px arial")
-          .text("Student skills (PISA)");
+          .text(textX);
 
     // draw y-axis
     main.append('g')
@@ -110,7 +93,7 @@ d3_queue.queue()
           .attr("dx", "-.65em")
           .style("text-anchor", "end")
           .style("font", "16px arial")
-          .text("Employment rate (%)");
+          .text(textY);
 
     // draw the dots
     var scatterdots = main.append("svg:g");
@@ -118,8 +101,8 @@ d3_queue.queue()
       .data(plotObject)
       .enter().append("svg:circle")
           .attr("fill", "steelblue")
-          .attr("cx", function (d,i) { return x(+d.StuSkill); })
-          .attr("cy", function (d) { return y(+d.Employ); })
+          .attr("cx", function (d,i) { return x(+d.variableX); })
+          .attr("cy", function (d) { return y(+d.variableY); })
           .attr("r", 8);
 
     // focus tracking (interactivity)
@@ -136,13 +119,9 @@ d3_queue.queue()
         .attr('class', 'circle focusCircle');
 
     // get the index of the x-value at the left of the mouse
-    var bisectX = d3.bisector(function(d) { return +d.StuSkill; }).left;
+    var bisectX = d3.bisector(function(d) { return +d.variableX; }).left;
 
     // define label for crosshairs
-    var label = main.append("text")
-        .attr("x", width - 5)
-        .attr("y", height - 5)
-        .style("text-anchor", "end");
     var label_point = main.append("text");
 
     // initialise the overlay
@@ -165,12 +144,11 @@ d3_queue.queue()
             var d1 = plotObject[i];
 
             // work out which x-value is closest to the mouse
-            var d_index = (+d1.StuSkill - +d0.StuSkill) / 2.0 > mouseX - +d0.StuSkill ? d0 : d1;
-            // mouseX - d0[0] > d1[0] - mouseX ? d1 : d0;
+            var d_index = (+d1.variableX - +d0.variableX) / 2.0 > mouseX - +d0.variableX ? d0 : d1;
 
             // store selected coordinate
-            var xVal = x(+d_index.StuSkill);
-            var yVal = y(+d_index.Employ);
+            var xVal = x(+d_index.variableX);
+            var yVal = y(+d_index.variableY);
 
             // adjust focus
             focus.select('#focusCircle')
@@ -183,34 +161,46 @@ d3_queue.queue()
                 .attr('x1', x(xDomain[0])).attr('y1', yVal)
                 .attr('x2', x(xDomain[1])).attr('y2', yVal);
 
-            // define label for crosshairs file1
+            // define label for crosshairs
             label_point.attr("x", xVal + 10).attr("y", yVal + 13).style("text-anchor", "center");
             label_point.text(function() {
               return "x=" + x.invert(xVal) + ", y=" + y.invert(yVal);
-            });
-
-            // put a text label in the lower-right corner
-            label.text(function() {
-              return "x=" + x.invert(mouse[0]) + ", y=" + y.invert(mouse[1]);
             });
         });
 
     /*
      * Draw a regression line
      */
-    // obtain series for x and y
-    var xSeries = plotObject.map(function(d) { return parseFloat(+d.StuSkill); });
-    var ySeries = plotObject.map(function(d) { return parseFloat(+d.Employ); });
+    // obtain series for x and y (and rename them)
+    var xSeries = plotObject.map(function(d) { return parseFloat(+d.variableX); });
+    var ySeries = plotObject.map(function(d) { return parseFloat(+d.variableY); });
 
     // obtain slope, intercept and rSquared
 		var leastSquaresCoeff = leastSquares(xSeries, ySeries);
 
 		// apply the results of the least squares regression
 		var x1 = xSeries[0];
-		var y1 = leastSquaresCoeff.intercept;
+		var y1 = leastSquaresCoeff.slope * xSeries[0] + leastSquaresCoeff.intercept;
 		var x2 = xSeries[xSeries.length - 1];
-		var y2 = leastSquaresCoeff.slope * xSeries.length + leastSquaresCoeff.intercept;
+		var y2 = leastSquaresCoeff.slope * xSeries[xSeries.length - 1] + leastSquaresCoeff.intercept;
 		var trendData = [[x1,y1,x2,y2]];
+
+    // define format
+    var decimalFormat = d3.format("0.2f");
+
+    // define tooltip to display r-squared and regression equation
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 412])
+        .html(function(d) {
+          return "<strong>Equation:</strong> <span style='color:red'>" +
+          decimalFormat(leastSquaresCoeff.slope) + "x + " +
+          decimalFormat(leastSquaresCoeff.intercept) +
+          "</span><br><strong>R-Squared:</strong> <span style='color:red'>" +
+          decimalFormat(leastSquaresCoeff.rSquared) + "</span>";
+        });
+    // initialise tooltip
+    main.call(tip);
 
     // define the regression line
 		var trendline = main.selectAll(".trendline")
@@ -225,23 +215,26 @@ d3_queue.queue()
 			.attr("x2", function(d) { return x(d[2]); })
 			.attr("y2", function(d) { return y(d[3]); })
 			.attr("stroke", "black")
-			.attr("stroke-width", 1);
+			.attr("stroke-width", 4)
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
 
+    /*
     // display equation on the chart
-    var decimalFormat = d3.format("0.2f");
-		main.append("text")
-			.text("eq: " + decimalFormat(leastSquaresCoeff[0]) + "x + " +
-				decimalFormat(leastSquaresCoeff[1]))
-			.attr("class", "text-label")
-			.attr("x", function(d) {return x(x2) - 60;})
-			.attr("y", function(d) {return y(y2) - 30;});
+    main.append("text")
+      .text("eq: " + decimalFormat(leastSquaresCoeff.slope) + "x + " +
+        decimalFormat(leastSquaresCoeff.intercept))
+      .attr("class", "text-label")
+      .attr("x", function(d) {return x(x2) - 60;})
+      .attr("y", function(d) {return y(y2) - 30;});
 
-		// display r-square on the chart
-		main.append("text")
-			.text("r-sq: " + decimalFormat(leastSquaresCoeff[2]))
-			.attr("class", "text-label")
-			.attr("x", function(d) {return x(x2) - 60;})
-			.attr("y", function(d) {return y(y2) - 10;});
+    // display r-square on the chart
+    main.append("text")
+      .text("r-sq: " + decimalFormat(leastSquaresCoeff.rSquared))
+      .attr("class", "text-label")
+      .attr("x", function(d) {return x(x2) - 60;})
+      .attr("y", function(d) {return y(y2) - 10;});
+    */
 
 	// returns slope, intercept and r-square of the line
 	function leastSquares(xSeries, ySeries) {
@@ -269,12 +262,11 @@ d3_queue.queue()
 		var intercept = yBar - (xBar * slope);
 		var rSquared = Math.pow(ssXY, 2) / (ssXX * ssYY);
 
-    // convert to dictionary
+    // convert to dictionary and return
     var linearModel = {};
     linearModel['slope'] = slope;
     linearModel['intercept'] = intercept;
     linearModel['rSquared'] = rSquared;
-
 		return linearModel;
 	}
-});
+}
