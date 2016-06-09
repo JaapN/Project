@@ -13,63 +13,6 @@ d3_queue.queue()
   file2 = file2.points;
 
   /*
-   * Draw the world map by student skills
-   */
-  // create a new object of the loaded data
-  DatamapObject = {};
-  file1.forEach(function(d) {
-    if (d.indicator == "Student skills")
-    {
-      DatamapObject[d.location] =
-      {
-        fillKey: colorDataStuSkill(d.Value),
-        name: d.location,
-        country: d.country,
-        indicator: d.indicator,
-        student_skills: d.Value,
-        unit: d.unit
-      };
-    }
-  });
-
-  // the student skill map
-  $("#worldStuSkillMap").datamap({
-     scope: 'world',
-     geography_config: {
-       backgroundColor: '#006994',
-       borderColor: 'rgba(0,0,0,0.5)',
-       highlightBorderColor: 'rgba(0,255,255,1)',
-       popupTemplate: _.template([
-         '<div class="hoverinfo">',
-         '<strong><%= geography.properties.name %></strong>',
-         '<% if (data.name) { %>, <strong> <%= data.name %></strong><br/><% } %>',
-         '<% if (data.student_skills) { %> PISA avg. score: <%= data.student_skills %><br/> <% } %>',
-         '</div>'
-        ].join('') )
-     },
-     fills: {
-       defaultFill: '#808080',
-       veryLow: '#f2f0f7',
-       Low: '#cbc9e2',
-       Medium: '#9e9ac8',
-       High: '#756bb1',
-       veryHigh: '#54278f'
-     },
-     data: DatamapObject
-   });
-   // add interactivity to the maps
-   $("#worldStuSkillMap").on('map-click', function(event, data) {
-       alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
-       "Country name: " + data.data.country + "\n" +
-       "Code: " + data.data.name + "\n" +
-       data.data.indicator + " (PISA score): " + data.data.student_skills + "\n" +
-       "Relative ranking: " + data.data.fillKey + "\n"
-      ); // alerts about which country you clicked on
-      // create barchart for selected country
-      getBarchart(data.data.country);
-   });
-
-  /*
    * Draw the world map by employment
    */
   // create a new object of the loaded data
@@ -125,6 +68,63 @@ d3_queue.queue()
       // create barchart for selected country
       getBarchart(data.data.country);
    });
+
+   /*
+    * Draw the world map by student skills
+    */
+   // create a new object of the loaded data
+   DatamapObject = {};
+   file1.forEach(function(d) {
+     if (d.indicator == "Student skills")
+     {
+       DatamapObject[d.location] =
+       {
+         fillKey: colorDataStuSkill(d.Value),
+         name: d.location,
+         country: d.country,
+         indicator: d.indicator,
+         student_skills: d.Value,
+         unit: d.unit
+       };
+     }
+   });
+
+   // the student skill map
+   $("#worldStuSkillMap").datamap({
+      scope: 'world',
+      geography_config: {
+        backgroundColor: '#006994',
+        borderColor: 'rgba(0,0,0,0.5)',
+        highlightBorderColor: 'rgba(0,255,255,1)',
+        popupTemplate: _.template([
+          '<div class="hoverinfo">',
+          '<strong><%= geography.properties.name %></strong>',
+          '<% if (data.name) { %>, <strong> <%= data.name %></strong><br/><% } %>',
+          '<% if (data.student_skills) { %> PISA avg. score: <%= data.student_skills %><br/> <% } %>',
+          '</div>'
+         ].join('') )
+      },
+      fills: {
+        defaultFill: '#808080',
+        veryLow: '#f2f0f7',
+        Low: '#cbc9e2',
+        Medium: '#9e9ac8',
+        High: '#756bb1',
+        veryHigh: '#54278f'
+      },
+      data: DatamapObject
+    });
+    // add interactivity to the maps
+    $("#worldStuSkillMap").on('map-click', function(event, data) {
+        alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
+        "Country name: " + data.data.country + "\n" +
+        "Code: " + data.data.name + "\n" +
+        data.data.indicator + " (PISA score): " + data.data.student_skills + "\n" +
+        "Relative ranking: " + data.data.fillKey + "\n"
+       ); // alerts about which country you clicked on
+       // create barchart for selected country
+       getBarchart(data.data.country);
+    });
 
    /*
     * Draw the world map by satisfaction

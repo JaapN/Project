@@ -28,10 +28,11 @@ body {
 }
 
 .name {
+  font: 16px;
 }
 
 #about {
-  font: 14px cambria;
+  font: 18px cambria;
 }
 
 #worldStuSkillMap, #worldEmployMap, #worldSatisfMap, #worldPerEarnMap {
@@ -86,11 +87,12 @@ body {
      padding: 0px 0px;
      text-decoration: none;
      display: block;
+     margin: 1px;
  }
 
  /* Change color of dropdown links on hover */
  .dropdown-content button:hover {
-   background-color: #f1f1f1
+   background-color: #f1f1f1;
  }
 
  /* Show the dropdown menu on hover */

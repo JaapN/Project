@@ -22,12 +22,6 @@ function getBarchart(country)
         .scale(x)
         .orient("bottom");
 
-    // define separator and colour panel
-    var x1 = d3.scale.ordinal();
-
-    var color = d3.scale.ordinal()
-        .range(["#98abc5", "#ff8c00"]);
-
     // define y-axis
     var y = d3.scale.linear()
         .range([height, 0]);
@@ -114,11 +108,11 @@ function getBarchart(country)
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
           .call(xAxis)
-          .selectAll("text")
-            .style("text-anchor", "end")
-            .attr("dx", "-.5em")
-            .attr("dy", ".15em")
-            .attr("transform", "rotate(-20)");
+        .selectAll("text")
+          .style("text-anchor", "end")
+          .attr("dx", "-.5em")
+          .attr("dy", ".15em")
+          .attr("transform", "rotate(-20)");
 
       // y-axis
       barchart.append("g")
@@ -167,7 +161,7 @@ function getBarchart(country)
       else
       {
         d3.select("#barchart").style("display", "none");
-        d3.select("#noData").html("<font size='14px'><center><b>Sorry! There is no data for this country!</b></center></font>");
+        // d3.select("#noData").html("<font size='14px'><center><b>Sorry! There is no data for this country!</b></center></font>");
       }
     });
 }

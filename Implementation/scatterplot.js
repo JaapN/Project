@@ -71,29 +71,29 @@ function createPlot(variableX, variableY, textX, textY)
         .attr('class', 'x axis')
       	.attr('transform', 'translate(0,' + height + ')')
       	.call(xAxis)
-        .append("text")
-          .attr("transform", "rotate(0)")
-          .attr("y", -10)
-          .attr("x", 840)
-          .attr("dy", "0em")
-          .attr("dx", "-.50em")
-          .style("text-anchor", "end")
-          .style("font", "16px arial")
-          .text(textX);
+      .append("text")
+        .attr("transform", "rotate(0)")
+        .attr("y", -10)
+        .attr("x", 840)
+        .attr("dy", "0em")
+        .attr("dx", "-.50em")
+        .style("text-anchor", "end")
+        .style("font", "16px arial")
+        .text(textX);
 
     // draw y-axis
     main.append('g')
         .attr('class', 'y axis')
       	.attr('transform', 'translate(0,0)')
       	.call(yAxis)
-        .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
-          .attr("dy", ".85em")
-          .attr("dx", "-.65em")
-          .style("text-anchor", "end")
-          .style("font", "16px arial")
-          .text(textY);
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".85em")
+        .attr("dx", "-.65em")
+        .style("text-anchor", "end")
+        .style("font", "16px arial")
+        .text(textY);
 
     // draw the dots
     var scatterdots = main.append("svg:g");
