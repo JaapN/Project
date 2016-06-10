@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 130px;
+  height: 100px;
   overflow: hidden; /* Disables scrollbars on the header frame. To enable scrollbars, change "hidden" to "scroll" */
   background: #BCCE98;
 }
@@ -35,7 +35,7 @@ body {
   font: 18px cambria;
 }
 
-#worldStuSkillMap, #worldEmployMap, #worldSatisfMap, #worldPerEarnMap {
+#worldMap {
   height: 550px;
   width: 1180px;
   text-align: center;

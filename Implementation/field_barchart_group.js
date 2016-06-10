@@ -55,7 +55,7 @@ function getBarchart(country)
       if (error) throw error("Error: the file did not load!");
       data = data.points;
 
-      // extract the relevant variables to a newly defined object
+      // extract the relevant variables to newly defined objects
       fieldAverages = {};
       barchartObject = [];
       length = 0;
@@ -188,9 +188,9 @@ function getBarchart(country)
           .text(function(d) { return d; });
 
     // change display depending on the availability of data
-    if (barchartObject[0] != undefined && barchartObject[0].percentage != "")
+    if (barchartObject[0] != undefined && barchartObject[0].Country != "")
     {
-      d3.select("#barchart").style("display", "")
+      d3.select("#barchart").style("display", "");
     }
     else
     {

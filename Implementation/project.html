@@ -14,9 +14,9 @@
     <script src="https://d3js.org/d3-queue.v2.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script src="maps.js"></script>
-    <script src="graphs.js"></script>
     <script src="field_barchart_group.js"></script>
     <script src="scatterplot.js"></script>
+    <script src="graphs.js"></script>
     <script src="menu.js"></script>
     <script src="d3tip_library_index.js"></script>
     <link rel="stylesheet" type="text/css" href="project.css"/>
@@ -24,27 +24,25 @@
 
     <header id="header">
       <div id='title'>
-        <h1>Exploration of educational graduate field distribution by mapping of Better Life Index variables (average student skills, employment rate, personal earnings and life satisfaction)</h1>
+        <h1>Exploration of educational graduate field distribution by mapping of Better Life Index variables</h1>
       </div>
     </header>
 
-    <div id="worldStuSkillMap"><br><b>Student Skills (PISA) Map</b></div>
-    <div id="worldEmployMap"><br><b>Employment Rate (%) Map</b></div>
-    <div id="worldSatisfMap"><br><b>Life Satisfaction (0 - 10) Map</b></div>
-    <div id="worldPerEarnMap"><br><b>Personal Earnings (annual, US Dollar) Map</b></div>
-    <div id="graphStuSkillEmploy"><b>Graph of Student Skills (PISA score) against Employment Rate (%)</b><br></div>
-    <div id="scatterplot"><br></div>
+    <div id="worldMap" style="display:none"><br><b>World Map</b><br></div>
+    <div id="graphStuSkillEmploy" style="display:none"><b>Graph of Student Skills (PISA score) against Employment Rate (%)</b><br></div>
+    <div id="scatterplot" style="display:none"><br></div>
     <br>
 
     <div id='menu'>
       <br>
       <div class="dropdown">
-        <button class="dropbtn">BLI World Maps</button>
+        <button class="dropbtn">World Maps</button>
         <div class="dropdown-content">
-          <button onclick="getMapEmploy()">Employment Rate (%) World Map</button>
-          <button onclick="getMapStuSkill()">Student Skills (PISA) World Map</button>
-          <button onclick="getMapSatisf()">Life Satisfaction (0 - 10, Cantril Ladder) World Map</button>
-          <button onclick="getMapPerEarn()">Personal Earnings (annual, US Dollar) World Map</button>
+          <button onclick="getMap('Employment rate', 'Employment Rate (%) World Map')">Employment Rate (%) World Map</button>
+          <button onclick="getMap('Student skills', 'Student Skills (PISA) World Map')">Student Skills (PISA) World Map</button>
+          <button onclick="getMap('Life satisfaction', 'Life Satisfaction (0 - 10, Cantril Ladder) World Map')">Life Satisfaction (0 - 10, Cantril Ladder) World Map</button>
+          <button onclick="getMap('Personal earnings', 'Personal Earnings (annual, US Dollar) World Map')">Personal Earnings (annual, US Dollar) World Map</button>
+          <button onclick="getMap('Air pollution', 'Air pollution (micrograms per cubic metre) World Map')">Air Pollution (MICRO_M3) World Map</button>
         </div>
       </div>
 

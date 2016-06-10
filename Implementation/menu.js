@@ -4,59 +4,18 @@
  */
 
 // click on map Employment
-function getMapEmploy()
+function getMap(variable, title)
 {
-  d3.select('#graphStuSkillEmploy').style('display', 'none');
-  $("#scatterplot").empty();
-  d3.select('#scatterplot').style('display', 'none');
-  d3.select('#worldStuSkillMap').style('display', 'none');
-  d3.select('#worldEmployMap').style('display', '');
-  d3.select('#worldPerEarnMap').style('display', 'none');
-  d3.select('#worldSatisfMap').style('display', 'none');
-  $('#barchart').empty();
-  d3.select('#barchart').style('display', 'none');
-}
+ d3.select('#graphStuSkillEmploy').style('display', 'none');
+ $("#scatterplot").empty();
+ d3.select('#scatterplot').style('display', 'none');
+ d3.select('#worldMap').style('display', '');
+ $('#barchart').empty();
+ d3.select('#barchart').style('display', 'none');
 
-// click on map Student Skills
-function getMapStuSkill()
-{
-  d3.select('#graphStuSkillEmploy').style('display', 'none');
-  $("#scatterplot").empty();
-  d3.select('#scatterplot').style('display', 'none');
-  d3.select('#worldStuSkillMap').style('display', '');
-  d3.select('#worldEmployMap').style('display', 'none');
-  d3.select('#worldPerEarnMap').style('display', 'none');
-  d3.select('#worldSatisfMap').style('display', 'none');
-  $('#barchart').empty();
-  d3.select('#barchart').style('display', 'none');
-}
-
-// click on map Life Satisfaction
-function getMapSatisf()
-{
-  d3.select('#graphStuSkillEmploy').style('display', 'none');
-  $("#scatterplot").empty();
-  d3.select('#scatterplot').style('display', 'none');
-  d3.select('#worldStuSkillMap').style('display', 'none');
-  d3.select('#worldEmployMap').style('display', 'none');
-  d3.select('#worldPerEarnMap').style('display', 'none');
-  d3.select('#worldSatisfMap').style('display', '');
-  $('#barchart').empty();
-  d3.select('#barchart').style('display', 'none');
-}
-
-// click on map Personal Earnings
-function getMapPerEarn()
-{
-  d3.select('#graphStuSkillEmploy').style('display', 'none');
-  $("#scatterplot").empty();
-  d3.select('#scatterplot').style('display', 'none');
-  d3.select('#worldStuSkillMap').style('display', 'none');
-  d3.select('#worldEmployMap').style('display', 'none');
-  d3.select('#worldPerEarnMap').style('display', '');
-  d3.select('#worldSatisfMap').style('display', 'none');
-  $('#barchart').empty();
-  d3.select('#barchart').style('display', 'none');
+ // add title
+ d3.select('#worldMap').html("<br><b>" + title + "<br><b>");
+ createMap(variable);
 }
 
 // click on graph Student Skills - Employment Rate
@@ -65,26 +24,20 @@ function graphStuSkillEmploy()
   d3.select('#graphStuSkillEmploy').style('display', '');
   $("#scatterplot").empty();
   d3.select('#scatterplot').style('display', 'none');
-  d3.select('#worldStuSkillMap').style('display', 'none');
-  d3.select('#worldEmployMap').style('display', 'none');
-  d3.select('#worldPerEarnMap').style('display', 'none');
-  d3.select('#worldSatisfMap').style('display', 'none');
   $('#barchart').empty();
   d3.select('#barchart').style('display', 'none');
+  d3.select('#worldMap').style('display', 'none');
 }
 
 // click on a combination of variables to plot
 function plotVariables(variableX, variableY, unitX, unitY)
 {
   d3.select('#graphStuSkillEmploy').style('display', 'none');
+  $("#scatterplot").empty();
   d3.select('#scatterplot').style('display', '');
-  d3.select('#worldStuSkillMap').style('display', 'none');
-  d3.select('#worldEmployMap').style('display', 'none');
-  d3.select('#worldPerEarnMap').style('display', 'none');
-  d3.select('#worldSatisfMap').style('display', 'none');
   $('#barchart').empty();
   d3.select('#barchart').style('display', 'none');
-  $("#scatterplot").empty();
+  d3.select('#worldMap').style('display', 'none');
 
   // define texts
   textX = variableX + unitX;
@@ -99,15 +52,15 @@ function plotVariables(variableX, variableY, unitX, unitY)
     if (error) throw error("Error: the files did not load!");
     data = data.points;
 
-    // extract relevant variables from loaded dataset
+    // extract relevant variables from loaded dataset and insert into a newly defined object
     plotObject = [];
     data.forEach(function(d) {
         if (d.indicator == variableX)
         {
             plotObject.push(
             {
-              varX: d.Value,
-              varY: undefined
+              variableX: +d.Value,
+              variableY: undefined
             });
         }
     });
@@ -117,14 +70,18 @@ function plotVariables(variableX, variableY, unitX, unitY)
     data.forEach(function(d) {
         if (d.indicator == variableY)
         {
-            plotObject[counter].varY = d.Value;
+            plotObject[counter].variableY = +d.Value;
             counter++;
         }
     });
 
-    // convert data into series (arrays) and call createPlot
-    var xSeries = plotObject.map(function(d) { return parseFloat(+d.varX); });
-    var ySeries = plotObject.map(function(d) { return parseFloat(+d.varY); });
-    createPlot(xSeries, ySeries, textX, textY);
+    // sort the x-axis ascendingly
+    plotObject.sort(function(x, y)
+    {
+        return d3.ascending(x.variableX, y.variableX);
+    });
+
+    // draw scatterplot
+    createPlot(plotObject, textX, textY);
   });
 }

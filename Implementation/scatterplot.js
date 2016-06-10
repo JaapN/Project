@@ -6,25 +6,8 @@
 /*
  * Plot variableX on the x-axis against variableY on the y-axis
  */
-function createPlot(variableX, variableY, textX, textY)
+function createPlot(plotObject, textX, textY)
 {
-    // extract the relevant variables to a newly defined object with generic names
-    plotObject = [];
-    for(var i = 0; i < variableX.length; i++)
-    {
-        plotObject.push(
-        {
-          variableX: variableX[i],
-          variableY: variableY[i]
-        });
-    };
-
-    // sort the x-axis ascendingly
-    plotObject.sort(function(x, y)
-    {
-        return d3.ascending(x.variableX, y.variableX);
-    });
-
     // define margins
     var margin = {top: 40, right: 250, bottom: 50, left: 70},
         width = 1150 - margin.left - margin.right,
