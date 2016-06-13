@@ -56,7 +56,7 @@ function createMap(variable)
        geography_config: {
          backgroundColor: '#006994',
          borderColor: 'rgba(0,0,0,0.5)',
-         highlightBorderColor: 'rgba(0,255,255,1)',
+         highlightBorderColor: 'rgba(255,0,255,1)',
          popupTemplate: _.template([
            '<div class="hoverinfo">',
            '<strong><%= geography.properties.name %></strong>',
@@ -66,15 +66,35 @@ function createMap(variable)
           ].join('') )
        },
        fills: {
-         defaultFill: '#808080',
-         veryLow: '#ffffb2',
-         Low: '#fecc5c',
-         Medium: '#fd8d3c',
-         High: '#f03b20',
-         veryHigh: '#bd0026'
+         defaultFill: '#eeeeee',
+         extremelyLow: '#ccece6',
+         veryLow: '#99d8c9',
+         Low: '#66c2a4',
+         Medium: '#41ae76',
+         High: '#238b45',
+         veryHigh: '#006d2c',
+         extremelyHigh: '#00441b'
        },
+       /*
+       customLegend: function(layer, data, options) {
+          var html = ['<ul class="list-inline">'],
+              label = '';
+          for (var fillKey in this.options.fills) {
+            html.push('<li class="key" ',
+                        'style="border-top: 10px solid '
+                        + this.options.fills[fillKey] + '">',
+                        fillKey,
+                        '</li>');
+          }
+          html.push('</ul>');
+          d3.select(this.options.element).append('div')
+            .attr('class', 'datamaps-legend')
+            .html(html.join(''));
+       },
+       */
        data: datamapObject
      });
+
      // add interactivity to the maps
      $("#worldMap").on('map-click', function(event, data) {
          /*
@@ -88,6 +108,23 @@ function createMap(variable)
         */
         getBarchart(data.data.country);
      });
+
+     /*
+     // add a legend
+     $("worldMap").legend({
+      legendTitle : "Colour Classes",
+      defaultFillName: "No Data",
+      labels: {
+        extremelyLow: '#edf8fb',
+        veryLow: '#ccece6',
+        Low: '#99d8c9',
+        Medium: '#66c2a4',
+        High: '#41ae76',
+        veryHigh: '#238b45',
+        extremelyHigh: '#005824'
+      }
+    });
+    */
   });
 }
 
@@ -97,24 +134,32 @@ function createMap(variable)
 function colorData(input, series)
 {
   // get color for the data
-  if (input < series[Math.round(series.length / 5)])
+  if (input < series[2 * Math.round(series.length / 20)])
   {
-    return 'veryLow';
+    return 'extremelyLow';
   }
-  else if (input < series[2 * Math.round(series.length / 5)])
+  else if (input < series[5 * Math.round(series.length / 20)])
+  {
+   return 'veryLow';
+  }
+  else if (input < series[8 * Math.round(series.length / 20)])
   {
     return 'Low';
   }
-  else if (input < series[3 * Math.round(series.length / 5)])
+  else if (input < series[12 * Math.round(series.length / 20)])
   {
     return 'Medium';
   }
-  else if (input < series[4 * Math.round(series.length / 5)])
+  else if (input < series[15 * Math.round(series.length / 20)])
   {
    return 'High';
   }
-  else if (input >= series[4 * Math.round(series.length / 5)])
+  else if (input < series[18 * Math.round(series.length / 20)])
   {
    return 'veryHigh';
+  }
+  else if (input >= series[18 * Math.round(series.length / 20)])
+  {
+   return 'extremelyHigh';
   }
 }

@@ -124,6 +124,15 @@ function getBarchart(country)
       x1.domain(groupNames).rangeRoundBands([0, x0.rangeBand()]);
       y.domain([0, d3.max(barchartObject, function(d) { return d3.max(d.groups, function(d) { return +d.percentage; }); })]);
 
+      // title
+      barchart.append("g")
+          .attr("class", "title")
+        .append("text")
+          .attr("x", width / 2)
+          .attr("y", 10)
+          .style("font", "36px cambria")
+          .text(country);
+
       // x-axis
       barchart.append("g")
           .attr("class", "x axis")
@@ -150,7 +159,7 @@ function getBarchart(country)
       var field = barchart.selectAll(".field")
           .data(barchartObject)
         .enter().append("g")
-          .attr("class", "bars")
+          .attr("class", "bar")
           .attr("transform", function(d) { return "translate(" + x0(d.field) + ",0)"; });
 
       // create bars
