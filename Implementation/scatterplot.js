@@ -105,7 +105,8 @@ function createPlot(plotObject, textX, textY)
     var bisectX = d3.bisector(function(d) { return +d.variableX; }).left;
 
     // define label for crosshairs
-    var label_point = main.append("text");
+    var labelPoint = main.append("div")
+      .attr("id", "label_point");
 
     // initialise the overlay
     main.append('rect')
@@ -120,23 +121,38 @@ function createPlot(plotObject, textX, textY)
             var mouseX = x.invert(mouse[0]);
 
             // returns the index to the current data item
-            var i = bisectX(plotObject, mouseX);
+            var indexItem = bisectX(plotObject, mouseX);
 
             // store values left and right of the mouse
-            var d0 = plotObject[i - 1]
-            var d1 = plotObject[i];
+            var dLeft = plotObject[indexItem - 1]
+            var dRight = plotObject[indexItem];
 
             // work out which x-value is closest to the mouse
-            var d_index = (+d1.variableX - +d0.variableX) / 2.0 > mouseX - +d0.variableX ? d0 : d1;
+            var dSelected = (+dRight.variableX - +dLeft.variableX) / 2.0 > mouseX - +dLeft.variableX ? dLeft : dRight;
 
             // store selected coordinate
-            var xVal = x(+d_index.variableX);
-            var yVal = y(+d_index.variableY);
+            var xVal = x(+dSelected.variableX);
+            var yVal = y(+dSelected.variableY);
+            var countryVal = dSelected.country;
+
+            // define tooltip to display value of selected dot
+            var focusTip = d3.tip()
+                .attr('class', 'd3-tip')
+                .offset([0, 0])
+                .html(function(d) {
+                  return "<strong>" + x.invert(xVal) +
+                  "<span style='color:red'><br><strong>" + y.invert(yVal) +
+                  "</strong> <span style='color:red'></span>";
+                });
+            // initialise tooltip
+            main.call(focusTip);
 
             // adjust focus
             focus.select('#focusCircle')
                 .attr('cx', xVal)
-                .attr('cy', yVal);
+                .attr('cy', yVal)
+                .on("mouseover", focusTip.show)
+                .on("mouseout", focusTip.hide);
             focus.select('#focusLineX')
                 .attr('x1', xVal).attr('y1', y(yDomain[0]))
                 .attr('x2', xVal).attr('y2', y(yDomain[1]));
@@ -145,9 +161,10 @@ function createPlot(plotObject, textX, textY)
                 .attr('x2', x(xDomain[1])).attr('y2', yVal);
 
             // define label for crosshairs
-            label_point.attr("x", xVal + 10).attr("y", yVal + 13).style("text-anchor", "center");
-            label_point.text(function() {
-              return "x=" + x.invert(xVal) + ", y=" + y.invert(yVal);
+            // labelPoint.attr("x", xVal + 10).attr("y", yVal + 13).style("text-anchor", "center");
+            labelPoint.style("left", xVal + 10 + 'px').style("top", yVal + 13 + 'px');
+            labelPoint.text(function() {
+              return "x=" + x.invert(xVal) + ", y=" + y.invert(yVal) + "; country=" + countryVal;
             });
         });
 
@@ -172,7 +189,7 @@ function createPlot(plotObject, textX, textY)
     var decimalFormat = d3.format("0.2f");
 
     // define tooltip to display r-squared and regression equation
-    var tip = d3.tip()
+    var tipRegrLine = d3.tip()
         .attr('class', 'd3-tip')
         .offset([-10, 412])
         .html(function(d) {
@@ -183,7 +200,7 @@ function createPlot(plotObject, textX, textY)
           decimalFormat(leastSquaresCoeff.rSquared) + "</span>";
         });
     // initialise tooltip
-    main.call(tip);
+    main.call(tipRegrLine);
 
     // define the regression line
 		var trendline = main.selectAll(".trendline")
@@ -197,27 +214,25 @@ function createPlot(plotObject, textX, textY)
 			.attr("y1", function(d) { return y(d[1]); })
 			.attr("x2", function(d) { return x(d[2]); })
 			.attr("y2", function(d) { return y(d[3]); })
-			.attr("stroke", "black")
+			.attr("stroke", "green")
 			.attr("stroke-width", 4)
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide);
+      .on('mouseover', tipRegrLine.show)
+      .on('mouseout', tipRegrLine.hide);
 
-    /*
     // display equation on the chart
     main.append("text")
       .text("eq: " + decimalFormat(leastSquaresCoeff.slope) + "x + " +
         decimalFormat(leastSquaresCoeff.intercept))
       .attr("class", "text-label")
-      .attr("x", function(d) {return x(x2) - 60;})
+      .attr("x", function(d) {return x(x2) + 10;})
       .attr("y", function(d) {return y(y2) - 30;});
 
     // display r-square on the chart
     main.append("text")
       .text("r-sq: " + decimalFormat(leastSquaresCoeff.rSquared))
       .attr("class", "text-label")
-      .attr("x", function(d) {return x(x2) - 60;})
+      .attr("x", function(d) {return x(x2) + 10;})
       .attr("y", function(d) {return y(y2) - 10;});
-    */
 
 	// returns slope, intercept and r-square of the line
 	function leastSquares(xSeries, ySeries) {

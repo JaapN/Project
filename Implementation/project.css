@@ -38,8 +38,10 @@ body {
 #worldMap {
   height: 550px;
   width: 1180px;
+  margin-bottom: 100px;
+  margin-bottom: 100px;
   text-align: center;
-  font: cambria;
+  font: sans-serif;
   font-size: 16px;
   background-color: '#006994';
 }
@@ -49,7 +51,7 @@ body {
   width: 1180px;
   text-align: center;
   font: sans-serif;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 /*

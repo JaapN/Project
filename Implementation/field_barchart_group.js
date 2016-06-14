@@ -7,7 +7,8 @@
 function getBarchart(country)
 {
     // clear the previous barchart
-    $("#barchart").empty();
+    d3.select('#barchart').selectAll("*").remove();
+    d3.selectAll('.d3-tip').remove();
 
     // define margins
     var margin = {top: 20, right: 30, bottom: 100, left: 200},
@@ -55,26 +56,9 @@ function getBarchart(country)
       if (error) throw error("Error: the file did not load!");
       data = data.points;
 
-      // extract the relevant variables to newly defined objects
-      fieldAverages = {};
+      // extract the relevant variables to a newly defined object
       barchartObject = [];
-      length = 0;
-      allFields = [];
-
       data.forEach(function(d) {
-        if (d.Value != "" && d.Value != 0)
-        {
-            if (fieldAverages[d.field])
-            {
-              fieldAverages[d.field] += parseFloat(d.Value);
-            }
-            else
-            {
-              fieldAverages[d.field] = parseFloat(d.Value);
-              allFields.push(d.field);
-            }
-            length += 1;
-        }
         if (d.country == country)
         {
             barchartObject.push(
@@ -85,14 +69,7 @@ function getBarchart(country)
         }
       });
 
-      // calculate averages for all fields
-      length = length / allFields.length;
-      for (var i = 0; i < allFields.length; i++)
-      {
-        fieldAverages[allFields[i]] = fieldAverages[allFields[i]] / length;
-      }
-
-      // add averages for every field to barchartObject
+      // add averages for every field to barchartObject (see field_averages.js)
       barchartObject.forEach(function(d) {
         for (var i = 0; i < allFields.length; i++)
         {
@@ -102,8 +79,6 @@ function getBarchart(country)
           }
         }
       });
-
-      // define the x and y domains
 
       // get group names (country and average)
       var groupNames = d3.keys(barchartObject[0]).filter(function(key) { return key !== "field"; });
@@ -128,7 +103,7 @@ function getBarchart(country)
       barchart.append("g")
           .attr("class", "title")
         .append("text")
-          .attr("x", width / 2)
+          .attr("x", width / 3)
           .attr("y", 10)
           .style("font", "36px cambria")
           .text(country);

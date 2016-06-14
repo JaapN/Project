@@ -44,26 +44,36 @@ function createMap(variable)
     });
 
     // the employment rate map
-    $("#worldMap").datamap({
+    var worldDatamap = new Datamap({
+       element: document.getElementById("worldMap"),
        scope: 'world',
-       /*
        done: function(datamap) {
          datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-           alert(geography.properties.name);
+           getBarchart(geography.properties.name);
          });
        },
-       */
-       geography_config: {
+       geographyConfig: {
          backgroundColor: '#006994',
          borderColor: 'rgba(0,0,0,0.5)',
          highlightBorderColor: 'rgba(255,0,255,1)',
-         popupTemplate: _.template([
-           '<div class="hoverinfo">',
-           '<strong><%= geography.properties.name %></strong>',
-           '<% if (data.name) { %>, <strong> <%= data.name %></strong><br/><% } %>',
-           '<% if (data.value) { %> <%= data.indicator %> (<%= data.unit %>): <%= data.value %><br/> <% } %>',
-           '</div>'
-          ].join('') )
+         popupTemplate: function(geography, data) {
+             if (data)
+             {
+               return ['<div class="hoverinfo">'
+               + '<strong>' + geography.properties.name + ', ' + data.name + '</strong><br/>'
+               + data.indicator + ' (' + data.unit + '): ' + data.value + '<br/></div>'];
+             }
+             else
+             {
+               return ['<div class="hoverinfo">'
+               + '<strong>' + geography.properties.name + '</strong></div>'];
+             }
+             /*
+             '<% if (data.name) { %>, <strong> <%= data.name %></strong><br/><% } %>',
+             '<% if (data.value) { %> <%= data.indicator %> (<%= data.unit %>): <%= data.value %><br/> <% } %>',
+             '</div>'].join('');
+             */
+         }
        },
        fills: {
          defaultFill: '#eeeeee',
@@ -75,56 +85,23 @@ function createMap(variable)
          veryHigh: '#006d2c',
          extremelyHigh: '#00441b'
        },
-       /*
-       customLegend: function(layer, data, options) {
-          var html = ['<ul class="list-inline">'],
-              label = '';
-          for (var fillKey in this.options.fills) {
-            html.push('<li class="key" ',
-                        'style="border-top: 10px solid '
-                        + this.options.fills[fillKey] + '">',
-                        fillKey,
-                        '</li>');
-          }
-          html.push('</ul>');
-          d3.select(this.options.element).append('div')
-            .attr('class', 'datamaps-legend')
-            .html(html.join(''));
-       },
-       */
        data: datamapObject
      });
 
-     // add interactivity to the maps
-     $("#worldMap").on('map-click', function(event, data) {
-         /*
-         alert( "Clicked on: " + data.geography.id + "\n" + "\n" +
-         "Country name: " + data.data.country + "\n" +
-         "Code: " + data.data.name + "\n" +
-         data.data.indicator + " (" + data.data.unit + "): " + data.data.value + "\n" +
-         "Relative ranking: " + data.data.fillKey + "\n"
-        ); // alerts about which country you clicked on
-        // create barchart for selected country
-        */
-        getBarchart(data.data.country);
-     });
-
-     /*
      // add a legend
-     $("worldMap").legend({
-      legendTitle : "Colour Classes",
-      defaultFillName: "No Data",
+     worldDatamap.legend({
+      legendTitle : "Legend",
+      defaultFillName: "No Data:",
       labels: {
-        extremelyLow: '#edf8fb',
-        veryLow: '#ccece6',
-        Low: '#99d8c9',
-        Medium: '#66c2a4',
-        High: '#41ae76',
-        veryHigh: '#238b45',
-        extremelyHigh: '#005824'
+        extremelyLow: 'Extremely low:',
+        veryLow: 'Very low:',
+        Low: 'Low:',
+        Medium: 'Medium:',
+        High: 'High:',
+        veryHigh: 'Very high:',
+        extremelyHigh: 'Extremely high:'
       }
     });
-    */
   });
 }
 
