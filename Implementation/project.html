@@ -21,7 +21,7 @@
     <script src="scatterplot.js"></script>
     <script src="graphs.js"></script>
     <script src="menu.js"></script>
-    <script src="d3tip_library_index.js"></script>
+    <script src="../scripts/d3tip_library_index.js"></script>
     <link rel="stylesheet" type="text/css" href="project.css"/>
     <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
 
@@ -39,13 +39,147 @@
     <div id='menu'>
       <br>
       <div class="dropdown">
-        <button class="dropbtn">World Maps</button>
+        <button class="dropbtn">World Datamaps</button>
         <div class="dropdown-content">
           <button onclick="getMap('Employment rate', 'Employment Rate (%) World Map')">Employment Rate (%) World Map</button>
+          <button onclick="getMap('Long-term unemployment rate', 'Long-term unemployment rate (%) World Map')">Long-term unemployment rate (%) World Map</button>
+          <button onclick="getMap('Labour market insecurity', 'Labour market insecurity (%) World Map')">Labour market insecurity (%) World Map</button>
           <button onclick="getMap('Student skills', 'Student Skills (PISA) World Map')">Student Skills (PISA) World Map</button>
           <button onclick="getMap('Life satisfaction', 'Life Satisfaction (0 - 10, Cantril Ladder) World Map')">Life Satisfaction (0 - 10, Cantril Ladder) World Map</button>
+          <button onclick="getMap('Life expectancy', 'Life expectancy (years) World Map')">Life expectancy (years) World Map</button>
           <button onclick="getMap('Personal earnings', 'Personal Earnings (annual, US Dollar) World Map')">Personal Earnings (annual, US Dollar) World Map</button>
           <button onclick="getMap('Air pollution', 'Air pollution (micrograms per cubic metre) World Map')">Air Pollution (MICRO_M3) World Map</button>
+          <button onclick="getMap('Water quality', 'Water quality (%) World Map')">Water quality (%) World Map</button>
+          <button onclick="getMap('Housing expenditure', 'Housing expenditure (%) World Map')">Housing expenditure (%) World Map</button>
+          <button onclick="getMap('Household net adjusted disposable income', 'Household net adjusted disposable income (annual, US Dollar) World Map')">Household net adjusted disposable income (annual, US Dollar) World Map</button>
+          <button onclick="getMap('Household net financial wealth', 'Household net financial wealth (annual, US Dollar) World Map')">Household net financial wealth (annual, US Dollar) World Map</button>
+          <button onclick="getMap('Educational attainment', 'Educational attainment (%) World Map')">Educational attainment (%) World Map</button>
+          <button onclick="getMap('Years in education', 'Years in education (years) World Map')">Years in education (years) World Map</button>
+          <button onclick="getMap('Voter turnout', 'Voter turnout (%) World Map')">Voter turnout (%) World Map</button>
+          <button onclick="getMap('Self-reported health', 'Self-reported health (%) World Map')">Self-reported health (%) World Map</button>
+          <button onclick="getMap('Employees working very long hours', 'Employees working very long hours (%) World Map')">Employees working very long hours (%) World Map</button>
+          <button onclick="getMap('Time devoted to leisure and personal care', 'Time devoted to leisure and personal care (hours/day) World Map')">Time devoted to leisure and personal care (hours/day) World Map</button>
+          <button onclick="getMap('Dwellings without basic facilities', 'Dwellings without basic facilities (%) World Map')">Dwellings without basic facilities (%) World Map</button>
+          <button onclick="getMap('Rooms per person', 'Rooms per person (ratio) World Map')">Rooms per person (ratio) World Map</button>
+          <button onclick="getMap('Stakeholder engagement for developing regulations', 'Stakeholder engagement for developing regulations (score) World Map')">Stakeholder engagement for developing regulations (score) World Map</button>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropbtn">Scatterplots: BLI - BLI</button>
+        <div class="dropdown-content">
+          Select an X-axis variable:
+          <select name="varX" id="varX">
+            <option value="Employment rate">Employment rate</option>
+            <option value="Long-term unemployment rate">Long-term unemployment rate</option>
+            <option value="Labour market insecurity">Labour market insecurity</option>
+            <option value="Student skills">Student skills</option>
+            <option value="Life satisfaction">Life satisfaction</option>
+            <option value="Life expectancy">Life expectancy</option>
+            <option value="Personal earnings">Personal earnings</option>
+            <option value="Air pollution">Air pollution</option>
+            <option value="Water quality">Water quality</option>
+            <option value="Housing expenditure">Housing expenditure</option>
+            <option value="Household net adjusted disposable income">Household net adjusted disposable income</option>
+            <option value="Household net financial wealth">Household net financial wealth</option>
+            <option value="Educational attainment">Educational attainment</option>
+            <option value="Years in education">Years in education</option>
+            <option value="Voter turnout">Voter turnout</option>
+            <option value="Self-reported health">Self-reported health</option>
+            <option value="Employees working very long hours">Employees working very long hours</option>
+            <option value="Time devoted to leisure and personal care">Time devoted to leisure and personal care</option>
+            <option value="Dwellings without basic facilities">Dwellings without basic facilities</option>
+            <option value="Rooms per person">Rooms per person</option>
+            <option value="Stakeholder engagement for developing regulations">Stakeholder engagement for developing regulations</option>
+          </select>
+          <br></br>
+
+          Select a Y-axis variable:
+          <select name="varY" id="varY">
+            <option value="Employment rate">Employment rate</option>
+            <option value="Long-term unemployment rate">Long-term unemployment rate</option>
+            <option value="Labour market insecurity">Labour market insecurity</option>
+            <option value="Student skills">Student skills</option>
+            <option value="Life satisfaction">Life satisfaction</option>
+            <option value="Life expectancy">Life expectancy</option>
+            <option value="Personal earnings">Personal earnings</option>
+            <option value="Air pollution">Air pollution</option>
+            <option value="Water quality">Water quality</option>
+            <option value="Housing expenditure">Housing expenditure</option>
+            <option value="Household net adjusted disposable income">Household net adjusted disposable income</option>
+            <option value="Household net financial wealth">Household net financial wealth</option>
+            <option value="Educational attainment">Educational attainment</option>
+            <option value="Years in education">Years in education</option>
+            <option value="Voter turnout">Voter turnout</option>
+            <option value="Self-reported health">Self-reported health</option>
+            <option value="Employees working very long hours">Employees working very long hours</option>
+            <option value="Time devoted to leisure and personal care">Time devoted to leisure and personal care</option>
+            <option value="Dwellings without basic facilities">Dwellings without basic facilities</option>
+            <option value="Rooms per person">Rooms per person</option>
+            <option value="Stakeholder engagement for developing regulations">Stakeholder engagement for developing regulations</option>
+          </select>
+          <br></br>
+
+          <input type="submit" value="Display Scatterplot" onclick="plotVariables()">
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropbtn">Scatterplots: BLI - Field</button>
+        <div class="dropdown-content">
+          Select an X-axis variable:
+          <select name="varXmulti" id="varXmulti">
+            <option value="Employment rate">Employment rate</option>
+            <option value="Long-term unemployment rate">Long-term unemployment rate</option>
+            <option value="Labour market insecurity">Labour market insecurity</option>
+            <option value="Student skills">Student skills</option>
+            <option value="Life satisfaction">Life satisfaction</option>
+            <option value="Life expectancy">Life expectancy</option>
+            <option value="Personal earnings">Personal earnings</option>
+            <option value="Air pollution">Air pollution</option>
+            <option value="Water quality">Water quality</option>
+            <option value="Housing expenditure">Housing expenditure</option>
+            <option value="Household net adjusted disposable income">Household net adjusted disposable income</option>
+            <option value="Household net financial wealth">Household net financial wealth</option>
+            <option value="Educational attainment">Educational attainment</option>
+            <option value="Years in education">Years in education</option>
+            <option value="Voter turnout">Voter turnout</option>
+            <option value="Self-reported health">Self-reported health</option>
+            <option value="Employees working very long hours">Employees working very long hours</option>
+            <option value="Time devoted to leisure and personal care">Time devoted to leisure and personal care</option>
+            <option value="Dwellings without basic facilities">Dwellings without basic facilities</option>
+            <option value="Rooms per person">Rooms per person</option>
+            <option value="Stakeholder engagement for developing regulations">Stakeholder engagement for developing regulations</option>
+          </select>
+          <br></br>
+
+          Select a Y-axis variable:
+          <select name="varYmulti" id="varYmulti">
+            <option value="Teacher training and education science">Teacher training and education science</option>
+            <option value="Arts">Arts</option>
+            <option value="Humanities">Humanities</option>
+            <option value="Social and behavioural science">Social and behavioural science</option>
+            <option value="Journalism and information">Journalism and information</option>
+            <option value="Business and administration">Business and administration</option>
+            <option value="Law">Law</option>
+            <option value="Life science">Life science</option>
+            <option value="Physical science">Physical science</option>
+            <option value="Mathematics and statistics">Mathematics and statistics</option>
+            <option value="Computing">Computing</option>
+            <option value="Engineering and engineering trades">Engineering and engineering trades</option>
+            <option value="Manufacturing and processing">Manufacturing and processing</option>
+            <option value="Architecture and building">Architecture and building</option>
+            <option value="Agriculture, forestry and fishery">Agriculture, forestry and fishery</option>
+            <option value="Veterinary">Veterinary</option>
+            <option value="Health">Health</option>
+            <option value="Social services">Social services</option>
+            <option value="Personal services">Personal services</option>
+            <option value="Transport services">Transport services</option>
+            <option value="Security services">Security services</option>
+          </select>
+          <br></br>
+
+          <input type="submit" value="Display Scatterplot" onclick="plotVariablesMultiData()">
         </div>
       </div>
 
@@ -66,7 +200,7 @@
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn">Scatterplots: Fields - BLI</button>
+        <button class="dropbtn">Scatterplots: BLI - Field</button>
         <div class="dropdown-content">
           <button onclick="plotVariablesMultiData('Student skills', 'Teacher training and education science', ' (PISA)', ' (%)')">Student Skills - Teacher Training and Education Science</button>
           <button onclick="plotVariablesMultiData('Life satisfaction', 'Teacher training and education science', ' (0 - 10, Cantril Ladder)', ' (%)')">Life satisfaction - Teacher Training and Education Science</button>
@@ -98,27 +232,27 @@
 
       <font size='5'><b>Grouped Barcharts</b></font><br>
       Click on a country to draw and display the respective educational field distribution barchart below the map and select menu.
-      Do note however that data about educational field distribution is not available for all countries, even those for which there is data to colour the respective country with. When attempting to select a country for which there is no education field data, no barchart will be displayed.
+      Do note however that data about educational field distribution is not available for all countries, even some of those for which there is data to colour the respective country with. When attempting to select a country for which there is no education field data, no barchart will be displayed.
       The educational field data represents the distribution of the total tertiary education (levels 5 to 8) of that country. The data for the Netherlands and Poland has been extrapolated from the known distribution of Bachelor's (level 6) and Master's (level 7) level graduates.<br></br>
 
       <font size='5'><b>Plots</b></font><br>
-      Select a combination of variables to have them plotted against each other.<br></br>
+      Select a combination of variables to have them plotted against each other.
+    </div>
 
+    <div id='footer'>
       <b>Data:</b> <a href="http://stats.oecd.org/Index.aspx?DataSetCode=BLI"><font color="blue">http://stats.oecd.org/Index.aspx?DataSetCode=BLI</font></a><br>
       <b>Map:</b> <a href="https://github.com/tillnagel/unfolding/blob/master/data/data/countries-population-density.csv"><font color="blue">https://github.com/tillnagel/unfolding/blob/master/data/data/countries-population-density.csv</font></a><br>
       <b>Colour Schemes:</b> <a href="http://colorbrewer2.org/"><font color="blue">http://colorbrewer2.org/</font></a>
       <br></br>
 
       See more at: <a href="http://stats.oecd.org/"><font color="blue">http://stats.oecd.org/</font></a><br>
-      - 'Education and Training' --> 'Education at a Glance' --> 'Distribution of graduates and entrants by Field' --> 'Share of graduates by field'.<br>
-      - 'Social Protection and Well-Being' --> 'Better Life Index (2016)'.<br></br>
+      - <b>Fields:</b> 'Education and Training' --> 'Education at a Glance' --> 'Distribution of graduates and entrants by Field' --> 'Share of graduates by field'.<br>
+      - <b>Better Life Index (BLI):</b> 'Social Protection and Well-Being' --> 'Better Life Index (2016)'.
       The data for the educational graduate field distribution is from 2013. The data for the Better Life Index variables is from 2016.
     </div>
 
-    <div class="name">
-      <br></br>
-      <b>Jaap Nieuwenhuizen</b>
-      <br></br>
+    <div id="name">
+      <b>&copy;Jaap Nieuwenhuizen; Programmeerproject</b>
     </div>
 
   </body>

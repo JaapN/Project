@@ -9,11 +9,19 @@
   height: 100px;
   overflow: hidden; /* Disables scrollbars on the header frame. To enable scrollbars, change "hidden" to "scroll" */
   background: #BCCE98;
+  padding: 5px;
+  font: 18px sans-serif;
+  margin-bottom: 5px;
 }
 
 #title {
-  font: 14px cambria;
+  font: 16px cambria;
   padding: 10px;
+}
+
+#menu {
+  background: #DAE9BC;
+  position: relative;
 }
 
 body {
@@ -22,24 +30,27 @@ body {
   margin: 15px;
 }
 
-#menu {
-  background: #DAE9BC;
-  position: relative;
-}
-
-.name {
-  font: 16px;
-}
-
 #about {
-  font: 18px cambria;
+  font: 17px sans-serif;
+  background-color: #DAE9BC;
+  margin: 25px;
+  padding: 10px;
+}
+
+#footer {
+  font: 14px arial;
+  background-color: #DAE9BC;
+  margin: 40px;
+  padding: 10px;
+}
+
+#name {
 }
 
 #worldMap {
-  height: 550px;
-  width: 1180px;
-  margin-bottom: 100px;
-  margin-bottom: 100px;
+  height: 500px;
+  width: 1150px;
+  margin-bottom: 80px;
   text-align: center;
   font: sans-serif;
   font-size: 16px;
@@ -48,7 +59,7 @@ body {
 
 #graphStuSkillEmploy, #scatterplot {
   height: 550px;
-  width: 1180px;
+  width: 1200px;
   text-align: center;
   font: sans-serif;
   font-size: 16px;
@@ -147,7 +158,7 @@ body {
 }
 
 .focusCircle {
-    fill: limegreen;
+    fill: firebrick;
 }
 
 .overlay {

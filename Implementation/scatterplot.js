@@ -9,7 +9,7 @@
 function createPlot(plotObject, textX, textY)
 {
     // define margins
-    var margin = {top: 40, right: 250, bottom: 50, left: 70},
+    var margin = {top: 50, right: 250, bottom: 100, left: 70},
         width = 1150 - margin.left - margin.right,
         height = 550 - margin.top - margin.bottom;
 
@@ -78,12 +78,28 @@ function createPlot(plotObject, textX, textY)
         .style("font", "16px arial")
         .text(textY);
 
+    /*
+    // define tooltip to display value of selected dot
+    var focusTip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([0, 0])
+        .html(function(d) {
+          return "<strong><span style='color:red'>" + x.invert(xVal)
+           + "<br>" + y.invert(yVal) + "<br>" + countryVal
+           + "</strong></span>";
+        });
+    // initialise tooltip
+    main.call(focusTip);
+    */
+
     // draw the dots
     var scatterdots = main.append("svg:g");
     scatterdots.selectAll("scatter-dots")
       .data(plotObject)
       .enter().append("svg:circle")
-          .attr("fill", "steelblue")
+          .attr("stroke", "steelblue")
+          .attr("stroke-width", 3)
+          .attr("fill", "white")
           .attr("cx", function (d,i) { return x(+d.variableX); })
           .attr("cy", function (d) { return y(+d.variableY); })
           .attr("r", 8);
@@ -105,8 +121,11 @@ function createPlot(plotObject, textX, textY)
     var bisectX = d3.bisector(function(d) { return +d.variableX; }).left;
 
     // define label for crosshairs
+    /*
     var labelPoint = main.append("div")
       .attr("id", "label_point");
+    */
+    var labelPoint = main.append("text");
 
     // initialise the overlay
     main.append('rect')
@@ -135,24 +154,10 @@ function createPlot(plotObject, textX, textY)
             var yVal = y(+dSelected.variableY);
             var countryVal = dSelected.country;
 
-            // define tooltip to display value of selected dot
-            var focusTip = d3.tip()
-                .attr('class', 'd3-tip')
-                .offset([0, 0])
-                .html(function(d) {
-                  return "<strong>" + x.invert(xVal) +
-                  "<span style='color:red'><br><strong>" + y.invert(yVal) +
-                  "</strong> <span style='color:red'></span>";
-                });
-            // initialise tooltip
-            main.call(focusTip);
-
             // adjust focus
             focus.select('#focusCircle')
                 .attr('cx', xVal)
-                .attr('cy', yVal)
-                .on("mouseover", focusTip.show)
-                .on("mouseout", focusTip.hide);
+                .attr('cy', yVal);
             focus.select('#focusLineX')
                 .attr('x1', xVal).attr('y1', y(yDomain[0]))
                 .attr('x2', xVal).attr('y2', y(yDomain[1]));
@@ -161,8 +166,8 @@ function createPlot(plotObject, textX, textY)
                 .attr('x2', x(xDomain[1])).attr('y2', yVal);
 
             // define label for crosshairs
-            // labelPoint.attr("x", xVal + 10).attr("y", yVal + 13).style("text-anchor", "center");
-            labelPoint.style("left", xVal + 10 + 'px').style("top", yVal + 13 + 'px');
+            labelPoint.attr("x", xVal + 10).attr("y", yVal - 7).style("text-anchor", "center");
+            // labelPoint.style("left", xVal + 10 + 'px').style("top", yVal + 13 + 'px');
             labelPoint.text(function() {
               return "x=" + x.invert(xVal) + ", y=" + y.invert(yVal) + "; country=" + countryVal;
             });
@@ -215,7 +220,7 @@ function createPlot(plotObject, textX, textY)
 			.attr("x2", function(d) { return x(d[2]); })
 			.attr("y2", function(d) { return y(d[3]); })
 			.attr("stroke", "green")
-			.attr("stroke-width", 4)
+			.attr("stroke-width", 3)
       .on('mouseover', tipRegrLine.show)
       .on('mouseout', tipRegrLine.hide);
 
