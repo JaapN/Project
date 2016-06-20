@@ -31,11 +31,6 @@ function createMap(varSeries, datamapObject)
              return ['<div class="hoverinfo">'
              + '<strong>' + geography.properties.name + '</strong></div>'];
            }
-           /*
-           '<% if (data.name) { %>, <strong> <%= data.name %></strong><br/><% } %>',
-           '<% if (data.value) { %> <%= data.indicator %> (<%= data.unit %>): <%= data.value %><br/> <% } %>',
-           '</div>'].join('');
-           */
        }
      },
      fills: {
