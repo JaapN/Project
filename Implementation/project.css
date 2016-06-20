@@ -57,7 +57,7 @@ body {
   background-color: '#006994';
 }
 
-#graphStuSkillEmploy, #scatterplot {
+#graph, #scatterplot {
   height: 550px;
   width: 1200px;
   text-align: center;

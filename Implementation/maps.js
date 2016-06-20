@@ -53,13 +53,13 @@ function createMap(varSeries, datamapObject)
 
    // define label variables for legend
    labelDefault = " Missing Data (NaN / undefined / 0):";
-   labelExtLow = 'Extremely low (' + varSeries[0] + ' - ' + (varSeries[2 * Math.round(varSeries.length / 20) - 1]) + "): ";
-   labelVeryLow = ' Very low (' + varSeries[2 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[5 * Math.round(varSeries.length / 20) - 1]) + "): ";
-   labelLow = ' Low (' + varSeries[5 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[8 * Math.round(varSeries.length / 20) - 1]) + "): ";
-   labelMedium = ' Medium (' + varSeries[8 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[12 * Math.round(varSeries.length / 20) - 1]) + "): ";
-   labelHigh = ' High (' + varSeries[12 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[15 * Math.round(varSeries.length / 20) - 1]) + "): ";
-   labelVeryHigh = ' Very high (' + varSeries[15 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[18 * Math.round(varSeries.length / 20) - 1]) + "): ";
-   labelExtHigh = ' Extremely high (' + varSeries[18 * Math.round(varSeries.length / 20)] + ' - ' + varSeries[varSeries.length - 1] + "): ";
+   labelExtLow = 'Extremely low (lower than ' + varSeries[2 * Math.round(varSeries.length / 20)] + "): ";
+   labelVeryLow = ' Very low (' + varSeries[2 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[5 * Math.round(varSeries.length / 20)]) + "): ";
+   labelLow = ' Low (' + varSeries[5 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[8 * Math.round(varSeries.length / 20)]) + "): ";
+   labelMedium = ' Medium (' + varSeries[8 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[12 * Math.round(varSeries.length / 20)]) + "): ";
+   labelHigh = ' High (' + varSeries[12 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[15 * Math.round(varSeries.length / 20)]) + "): ";
+   labelVeryHigh = ' Very high (' + varSeries[15 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[18 * Math.round(varSeries.length / 20)]) + "): ";
+   labelExtHigh = ' Extremely high (higher than or equal as ' + varSeries[18 * Math.round(varSeries.length / 20)] + "): ";
 
    // add legend
    worldDatamap.legend({
@@ -82,7 +82,6 @@ function createMap(varSeries, datamapObject)
    and the distribution of the respective input variable for all countries. */
 function colorData(input, series)
 {
-  console.log("series colorData: ", series);
   // get color for the data
   if (input < series[2 * Math.round(series.length / 20)])
   {

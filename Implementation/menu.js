@@ -7,7 +7,8 @@
 function getMap(variable, title)
 {
   // hide/clear all visualisations but the selected one
-  d3.select('#graphStuSkillEmploy').style('display', 'none');
+  d3.select('#graph').selectAll("*").remove();
+  d3.select('#graph').style('display', 'none');
   d3.select('#scatterplot').selectAll("*").remove();
   d3.select('#scatterplot').style('display', 'none');
   d3.select('#worldMap').style('display', '');
@@ -117,25 +118,12 @@ function getBarchart(country)
 
 
 
-// click on graph
-function graphStuSkillEmploy()
-{
-  // hide/clear all visualisations but the selected one
-  d3.select('#graphStuSkillEmploy').style('display', '');
-  d3.select('#scatterplot').selectAll("*").remove();
-  d3.select('#scatterplot').style('display', 'none');
-  d3.select('#barchart').style('display', 'none');
-  d3.select('#worldMap').style('display', 'none');
-  d3.selectAll('.d3-tip').remove();
-}
-
-
-
 // click on a combination of BLI variables to plot with createPlot
 function plotVariables()
 {
   // hide/clear all visualisations but the selected one
-  d3.select('#graphStuSkillEmploy').style('display', 'none');
+  d3.select('#graph').selectAll("*").remove();
+  d3.select('#graph').style('display', 'none');
   d3.select('#scatterplot').selectAll("*").remove();
   d3.select('#scatterplot').style('display', '');
   d3.select('#barchart').style('display', 'none');
@@ -214,7 +202,8 @@ function plotVariables()
 function plotVariablesMultiData()
 {
   // hide/clear all visualisations but the selected one
-  d3.select('#graphStuSkillEmploy').style('display', 'none');
+  d3.select('#graph').selectAll("*").remove();
+  d3.select('#graph').style('display', 'none');
   d3.select('#scatterplot').selectAll("*").remove();
   d3.select('#scatterplot').style('display', '');
   d3.select('#barchart').style('display', 'none');
@@ -290,5 +279,164 @@ function plotVariablesMultiData()
 
       // draw scatterplot
       createPlot(plotObject, textX, textY);
+  });
+}
+
+
+
+// Graph: BLI - BLI
+function getGraph()
+{
+  // hide/clear all visualisations but the selected one
+  d3.select('#graph').selectAll("*").remove();
+  d3.select('#graph').style('display', '');
+  d3.select('#scatterplot').selectAll("*").remove();
+  d3.select('#scatterplot').style('display', 'none');
+  d3.select('#barchart').style('display', 'none');
+  d3.select('#worldMap').style('display', 'none');
+  d3.selectAll('.d3-tip').remove();
+
+  // load the data
+  d3.json("BLI_info.json",
+  function(error, data) {
+    if (error) throw error("Error: the files did not load!");
+    data = data.points;
+
+    // get X and Y indicators/variables from the selectmenus in the dropdown
+    variableX = d3.select('#graphX').node().value;
+    variableY = d3.select('#graphY').node().value;
+
+    // extract relevant variables from loaded dataset and insert into a newly defined object
+    graphObject = [];
+    data.forEach(function(d) {
+        if (d.indicator == variableX)
+        {
+            graphObject.push(
+            {
+              variableX: +d.Value,
+              variableY: undefined,
+              country: d.country
+            });
+            // get X-variable's unit
+            unitX = ' (' + d.unit + ')';
+        }
+    });
+
+    // replace undefined value
+    data.forEach(function(d) {
+        if (d.indicator == variableY)
+        {
+            graphObject.forEach(function(dGraph) {
+              if (dGraph.country == d.country)
+              {
+                dGraph.variableY = +d.Value;
+              }
+            });
+            // get Y-variable's unit
+            unitY = ' (' + d.unit + ')';
+        }
+    });
+
+    // define texts
+    textX = variableX + unitX;
+    textY = variableY + unitY;
+
+    // add title
+    d3.select('#graph').html("<br><b>Graph of " + textX + " against " + textY + "</b></br>");
+
+    // sort the x-axis ascendingly
+    graphObject.sort(function(x, y)
+    {
+        return d3.ascending(x.variableX, y.variableX);
+    });
+
+    // draw scatterplot
+    createGraph(graphObject, textX, textY);
+  });
+}
+
+
+
+// Graph: BLI - Field
+function getGraphMulti()
+{
+  // hide/clear all visualisations but the selected one
+  d3.select('#graph').selectAll("*").remove();
+  d3.select('#graph').style('display', '');
+  d3.select('#scatterplot').selectAll("*").remove();
+  d3.select('#scatterplot').style('display', 'none');
+  d3.select('#barchart').style('display', 'none');
+  d3.select('#worldMap').style('display', 'none');
+  d3.selectAll('.d3-tip').remove();
+
+  // load the data
+  d3_queue.queue()
+   .defer(d3.json, "BLI_info.json")
+   .defer(d3.json, "fields_grad_info.json")
+   .await(function(error, file1, file2) {
+      if (error) throw error("Error: the files did not load!");
+      file1 = file1.points;
+      file2 = file2.points;
+
+      // get X and Y indicators/variables from the selectmenus in the dropdown
+      variableX = d3.select('#graphXmulti').node().value;
+      variableY = d3.select('#graphYmulti').node().value;
+
+      // extract relevant variables from loaded dataset and insert into a newly defined object
+      graphObject = [];
+      file1.forEach(function(d) {
+          if (d.indicator == variableX)
+          {
+              graphObject.push(
+              {
+                variableX: +d.Value,
+                variableY: undefined,
+                country: d.country
+              });
+              // get X-variable's unit
+              unitX = ' (' + d.unit + ')';
+          }
+      });
+
+      // replace undefined value
+      file2.forEach(function(d) {
+          if (d.field == variableY)
+          {
+              graphObject.forEach(function(dGraph) {
+                if (dGraph.country == d.country)
+                {
+                  dGraph.variableY = +d.Value;
+                }
+              });
+              // get Y-variable's unit
+              unitY = ' (' + d.unit + ')';
+          }
+      });
+
+      // define texts
+      textX = variableX + unitX;
+      textY = variableY + unitY;
+
+      // add title
+      d3.select('#graph').html("<br><b>Graph of " + textX + " against " + textY + "</b></br>");
+
+      // sort the x-axis ascendingly
+      graphObject.sort(function(x, y)
+      {
+          return d3.ascending(x.variableX, y.variableX);
+      });
+
+      // delete objects with invalid/outlier y-values
+      for(var i = 0; i < graphObject.length; i++)
+      {
+        if (graphObject[i].variableY == 0 || graphObject[i].variableY == NaN || graphObject[i].variableY == undefined)
+        {
+          graphObject.splice(i, 1);
+          i--;
+        }
+      }
+
+      // draw scatterplot
+      createGraph(graphObject, textX, textY);
   });
 }

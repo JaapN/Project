@@ -32,8 +32,8 @@
     </header>
 
     <div id="worldMap" style="display:none"><br><b>World Map</b><br></div>
-    <div id="graphStuSkillEmploy" style="display:none"><b>Graph of Student Skills (PISA score) against Employment Rate (%)</b><br></div>
-    <div id="scatterplot" style="display:none"><br></div>
+    <div id="graph" style="display:none"><b>Graph</b><br></div>
+    <div id="scatterplot" style="display:none"><b>Scatterplot</b><br></div>
     <br>
 
     <div id='menu'>
@@ -119,7 +119,6 @@
             <option value="Stakeholder engagement for developing regulations">Stakeholder engagement for developing regulations</option>
           </select>
           <br></br>
-
           <input type="submit" value="Display Scatterplot" onclick="plotVariables()">
         </div>
       </div>
@@ -178,51 +177,130 @@
             <option value="Security services">Security services</option>
           </select>
           <br></br>
-
           <input type="submit" value="Display Scatterplot" onclick="plotVariablesMultiData()">
         </div>
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn">Scatterplots: BLI - BLI</button>
+        <button class="dropbtn">Graph: BLI - BLI</button>
         <div class="dropdown-content">
-          <button onclick="plotVariables('Student skills', 'Employment rate', ' (PISA)', ' (%)')">Student Skills - Employment Rate</button>
-          <button onclick="plotVariables('Student skills', 'Personal earnings', ' (PISA)', ' (USD, annual)')">Student skills - Personal earnings</button>
-          <button onclick="plotVariables('Student skills', 'Life satisfaction', ' (PISA)', ' (0 - 10, Cantril Ladder)')">Student skills - Life satisfaction</button>
-          <button onclick="plotVariables('Life satisfaction', 'Personal earnings', ' (0 - 10, Cantril Ladder)', ' (USD, annual)')">Life satisfaction - Personal earnings</button>
-          <button onclick="plotVariables('Employment rate', 'Life satisfaction', ' (%)', ' (0 - 10, Cantril Ladder)')">Employment rate - Life satisfaction</button>
-          <button onclick="plotVariables('Employment rate', 'Personal earnings', ' (%)', ' (USD, annual)')">Employment rate - Personal earnings</button>
-          <button onclick="plotVariables('Air pollution', 'Water quality', ' (MICRO_M3)', ' (%)')">Air Polution - Water Quality</button>
-          <button onclick="plotVariables('Air pollution', 'Self-reported health', ' (MICRO_M3)', ' (%)')">Air Polution - Self-reported Health</button>
-          <button onclick="plotVariables('Water quality', 'Self-reported health', ' (%)', ' (%)')">Water Quality - Self-reported Health</button>
-          <button onclick="plotVariables('Time devoted to leisure and personal care', 'Life satisfaction', ' (hours/day)', ' (0 - 10, Cantril Ladder)')">Water Quality - Self-reported Health</button>
+          Select an X-axis variable:
+          <select name="graphX" id="graphX">
+            <option value="Employment rate">Employment rate</option>
+            <option value="Long-term unemployment rate">Long-term unemployment rate</option>
+            <option value="Labour market insecurity">Labour market insecurity</option>
+            <option value="Student skills">Student skills</option>
+            <option value="Life satisfaction">Life satisfaction</option>
+            <option value="Life expectancy">Life expectancy</option>
+            <option value="Personal earnings">Personal earnings</option>
+            <option value="Air pollution">Air pollution</option>
+            <option value="Water quality">Water quality</option>
+            <option value="Housing expenditure">Housing expenditure</option>
+            <option value="Household net adjusted disposable income">Household net adjusted disposable income</option>
+            <option value="Household net financial wealth">Household net financial wealth</option>
+            <option value="Educational attainment">Educational attainment</option>
+            <option value="Years in education">Years in education</option>
+            <option value="Voter turnout">Voter turnout</option>
+            <option value="Self-reported health">Self-reported health</option>
+            <option value="Employees working very long hours">Employees working very long hours</option>
+            <option value="Time devoted to leisure and personal care">Time devoted to leisure and personal care</option>
+            <option value="Dwellings without basic facilities">Dwellings without basic facilities</option>
+            <option value="Rooms per person">Rooms per person</option>
+            <option value="Stakeholder engagement for developing regulations">Stakeholder engagement for developing regulations</option>
+          </select>
+          <br></br>
+
+          Select a Y-axis variable:
+          <select name="graphY" id="graphY">
+            <option value="Employment rate">Employment rate</option>
+            <option value="Long-term unemployment rate">Long-term unemployment rate</option>
+            <option value="Labour market insecurity">Labour market insecurity</option>
+            <option value="Student skills">Student skills</option>
+            <option value="Life satisfaction">Life satisfaction</option>
+            <option value="Life expectancy">Life expectancy</option>
+            <option value="Personal earnings">Personal earnings</option>
+            <option value="Air pollution">Air pollution</option>
+            <option value="Water quality">Water quality</option>
+            <option value="Housing expenditure">Housing expenditure</option>
+            <option value="Household net adjusted disposable income">Household net adjusted disposable income</option>
+            <option value="Household net financial wealth">Household net financial wealth</option>
+            <option value="Educational attainment">Educational attainment</option>
+            <option value="Years in education">Years in education</option>
+            <option value="Voter turnout">Voter turnout</option>
+            <option value="Self-reported health">Self-reported health</option>
+            <option value="Employees working very long hours">Employees working very long hours</option>
+            <option value="Time devoted to leisure and personal care">Time devoted to leisure and personal care</option>
+            <option value="Dwellings without basic facilities">Dwellings without basic facilities</option>
+            <option value="Rooms per person">Rooms per person</option>
+            <option value="Stakeholder engagement for developing regulations">Stakeholder engagement for developing regulations</option>
+          </select>
+          <br></br>
+          <input type="submit" value="Display Graph" onclick="getGraph()">
         </div>
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn">Scatterplots: BLI - Field</button>
+        <button class="dropbtn">Graph: BLI - Field</button>
         <div class="dropdown-content">
-          <button onclick="plotVariablesMultiData('Student skills', 'Teacher training and education science', ' (PISA)', ' (%)')">Student Skills - Teacher Training and Education Science</button>
-          <button onclick="plotVariablesMultiData('Life satisfaction', 'Teacher training and education science', ' (0 - 10, Cantril Ladder)', ' (%)')">Life satisfaction - Teacher Training and Education Science</button>
-          <button onclick="plotVariablesMultiData('Employment rate', 'Teacher training and education science', ' (%)', ' (%)')">Employment rate - Teacher Training and Education Science</button>
-          <button onclick="plotVariablesMultiData('Air pollution', 'Teacher training and education science', ' (MICRO_M3)', ' (%)')">Air Polution - Teacher Training and Education Science</button>
-          <button onclick="plotVariablesMultiData('Air pollution', 'Teacher training and education science', ' (MICRO_M3)', ' (%)')">Air Polution - Teacher Training and Education Science</button>
-          <button onclick="plotVariablesMultiData('Water quality', 'Teacher training and education science', ' (%)', ' (%)')">Water Quality - Teacher Training and Education Science</button>
-          <button onclick="plotVariablesMultiData('Time devoted to leisure and personal care', 'Teacher training and education science', ' (hours/day)', ' (%)')">Time to Leisure/Personal Care - Teacher Training and Education Science</button>
-        </div>
-      </div>
+          Select an X-axis variable:
+          <select name="graphXmulti" id="graphXmulti">
+            <option value="Employment rate">Employment rate</option>
+            <option value="Long-term unemployment rate">Long-term unemployment rate</option>
+            <option value="Labour market insecurity">Labour market insecurity</option>
+            <option value="Student skills">Student skills</option>
+            <option value="Life satisfaction">Life satisfaction</option>
+            <option value="Life expectancy">Life expectancy</option>
+            <option value="Personal earnings">Personal earnings</option>
+            <option value="Air pollution">Air pollution</option>
+            <option value="Water quality">Water quality</option>
+            <option value="Housing expenditure">Housing expenditure</option>
+            <option value="Household net adjusted disposable income">Household net adjusted disposable income</option>
+            <option value="Household net financial wealth">Household net financial wealth</option>
+            <option value="Educational attainment">Educational attainment</option>
+            <option value="Years in education">Years in education</option>
+            <option value="Voter turnout">Voter turnout</option>
+            <option value="Self-reported health">Self-reported health</option>
+            <option value="Employees working very long hours">Employees working very long hours</option>
+            <option value="Time devoted to leisure and personal care">Time devoted to leisure and personal care</option>
+            <option value="Dwellings without basic facilities">Dwellings without basic facilities</option>
+            <option value="Rooms per person">Rooms per person</option>
+            <option value="Stakeholder engagement for developing regulations">Stakeholder engagement for developing regulations</option>
+          </select>
+          <br></br>
 
-      <div class="dropdown">
-        <button class="dropbtn">Graphs</button>
-        <div class="dropdown-content">
-          <button onclick="graphStuSkillEmploy()">Student skills - Employment rate</button>
+          Select a Y-axis variable:
+          <select name="graphYmulti" id="graphYmulti">
+            <option value="Teacher training and education science">Teacher training and education science</option>
+            <option value="Arts">Arts</option>
+            <option value="Humanities">Humanities</option>
+            <option value="Social and behavioural science">Social and behavioural science</option>
+            <option value="Journalism and information">Journalism and information</option>
+            <option value="Business and administration">Business and administration</option>
+            <option value="Law">Law</option>
+            <option value="Life science">Life science</option>
+            <option value="Physical science">Physical science</option>
+            <option value="Mathematics and statistics">Mathematics and statistics</option>
+            <option value="Computing">Computing</option>
+            <option value="Engineering and engineering trades">Engineering and engineering trades</option>
+            <option value="Manufacturing and processing">Manufacturing and processing</option>
+            <option value="Architecture and building">Architecture and building</option>
+            <option value="Agriculture, forestry and fishery">Agriculture, forestry and fishery</option>
+            <option value="Veterinary">Veterinary</option>
+            <option value="Health">Health</option>
+            <option value="Social services">Social services</option>
+            <option value="Personal services">Personal services</option>
+            <option value="Transport services">Transport services</option>
+            <option value="Security services">Security services</option>
+          </select>
+          <br></br>
+          <input type="submit" value="Display Graph" onclick="getGraphMulti()">
         </div>
       </div>
       <br></br>
     </div>
     <br>
 
-    <svg class="graph" id="barchart" style="display:none"></svg>
+    <svg class="barchart" id="barchart" style="display:none"></svg>
 
     <div id='about'>
       <font size='5'><b>World Maps</b></font><br>
