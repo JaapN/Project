@@ -4,8 +4,13 @@
  */
 
 // click on World Datamaps
-function getMap(variable, title)
+function getMap(input)
 {
+  // convert input to two variables
+  var split = input.split(",");
+  var variable = split[0];
+  var title = split[1];
+
   // hide/clear all visualisations but the selected one
   d3.select('#graph').selectAll("*").remove();
   d3.select('#graph').style('display', 'none');
@@ -14,6 +19,13 @@ function getMap(variable, title)
   d3.select('#worldMap').style('display', '');
   d3.select('#barchart').style('display', 'none');
   d3.selectAll('.d3-tip').remove();
+
+  // change colours of the buttons
+  d3.select("#datamapsBtn").style("background-color", "red");
+  d3.select("#plotBtnBLIBLI").style("background-color", "#4CAF50");
+  d3.select("#plotBtnBLIField").style("background-color", "#4CAF50");
+  d3.select("#graphBtnBLIBLI").style("background-color", "#4CAF50");
+  d3.select("#graphBtnBLIField").style("background-color", "#4CAF50");
 
   // add title
   d3.select('#worldMap').html("<br><b>" + title + "<br><b>");
@@ -130,6 +142,13 @@ function plotVariables()
   d3.select('#worldMap').style('display', 'none');
   d3.selectAll('.d3-tip').remove();
 
+  // change colours of the buttons
+  d3.select("#datamapsBtn").style("background-color", "#4CAF50");
+  d3.select("#plotBtnBLIBLI").style("background-color", "red");
+  d3.select("#plotBtnBLIField").style("background-color", "#4CAF50");
+  d3.select("#graphBtnBLIBLI").style("background-color", "#4CAF50");
+  d3.select("#graphBtnBLIField").style("background-color", "#4CAF50");
+
   // load the data
   d3.json("BLI_info.json",
   function(error, data) {
@@ -178,13 +197,6 @@ function plotVariables()
     // add title
     d3.select('#scatterplot').html("<br><b>Plot of " + textX + " against " + textY + "</b></br>");
 
-    // delete country variable
-    /*
-    plotObject.forEach(function(dPlot) {
-      delete dPlot.country;
-    });
-    */
-
     // sort the x-axis ascendingly
     plotObject.sort(function(x, y)
     {
@@ -209,6 +221,13 @@ function plotVariablesMultiData()
   d3.select('#barchart').style('display', 'none');
   d3.select('#worldMap').style('display', 'none');
   d3.selectAll('.d3-tip').remove();
+
+  // change colours of the buttons
+  d3.select("#datamapsBtn").style("background-color", "#4CAF50");
+  d3.select("#plotBtnBLIBLI").style("background-color", "#4CAF50");
+  d3.select("#plotBtnBLIField").style("background-color", "red");
+  d3.select("#graphBtnBLIBLI").style("background-color", "#4CAF50");
+  d3.select("#graphBtnBLIField").style("background-color", "#4CAF50");
 
   // load the data
   d3_queue.queue()
@@ -296,6 +315,13 @@ function getGraph()
   d3.select('#worldMap').style('display', 'none');
   d3.selectAll('.d3-tip').remove();
 
+  // change colours of the buttons
+  d3.select("#datamapsBtn").style("background-color", "#4CAF50");
+  d3.select("#plotBtnBLIBLI").style("background-color", "#4CAF50");
+  d3.select("#plotBtnBLIField").style("background-color", "#4CAF50");
+  d3.select("#graphBtnBLIBLI").style("background-color", "red");
+  d3.select("#graphBtnBLIField").style("background-color", "#4CAF50");
+
   // load the data
   d3.json("BLI_info.json",
   function(error, data) {
@@ -368,6 +394,13 @@ function getGraphMulti()
   d3.select('#barchart').style('display', 'none');
   d3.select('#worldMap').style('display', 'none');
   d3.selectAll('.d3-tip').remove();
+
+  // change colours of the buttons
+  d3.select("#datamapsBtn").style("background-color", "#4CAF50");
+  d3.select("#plotBtnBLIBLI").style("background-color", "#4CAF50");
+  d3.select("#plotBtnBLIField").style("background-color", "#4CAF50");
+  d3.select("#graphBtnBLIBLI").style("background-color", "#4CAF50");
+  d3.select("#graphBtnBLIField").style("background-color", "red");
 
   // load the data
   d3_queue.queue()

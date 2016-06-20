@@ -5,13 +5,12 @@
   position: relative;
   top: 0;
   left: 0;
-  width: 100%;
   height: 100px;
   overflow: hidden; /* Disables scrollbars on the header frame. To enable scrollbars, change "hidden" to "scroll" */
   background: #BCCE98;
   padding: 5px;
   font: 18px sans-serif;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 
 #title {
@@ -65,6 +64,7 @@ body {
   font-size: 16px;
 }
 
+
 /*
  * DROPDOWN CSS
  */
@@ -105,7 +105,7 @@ body {
 
  /* Change color of dropdown links on hover */
  .dropdown-content button:hover {
-   background-color: #f1f1f1;
+     background-color: #f1f1f1;
  }
 
  /* Show the dropdown menu on hover */
@@ -117,6 +117,7 @@ body {
  .dropdown:hover .dropbtn {
      background-color: #3e8e41;
  }
+
 
 /*
  * GRAPH / PLOT / BARCHART CSS
@@ -168,38 +169,43 @@ body {
   stroke-width: 2px;
 }
 
+
 /*
- * BARCHART CSS
+ * D3 TIP
  */
 .d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
+ line-height: 1;
+ font-weight: bold;
+ padding: 12px;
+ background: rgba(0, 0, 0, 0.8);
+ color: #fff;
+ border-radius: 2px;
 }
 
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
+ box-sizing: border-box;
+ display: inline;
+ font-size: 10px;
+ width: 100%;
+ line-height: 1;
+ color: rgba(0, 0, 0, 0.8);
+ content: "\25BC";
+ position: absolute;
+ text-align: center;
 }
 
 /* Style northward tooltips differently */
 .d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
+ margin: -1px 0 0 0;
+ top: 100%;
+ left: 0;
 }
 
+
+/*
+ * BARCHART CSS
+ */
 /* Change the bars to steelblue */
 .bar {
   fill: steelblue;
@@ -216,6 +222,7 @@ body {
   font: 12px verdana;
   text-anchor: middle;
 }
+
 
 /*
  * SCATTERPLOT CSS

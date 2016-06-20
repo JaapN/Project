@@ -9,7 +9,7 @@
 function createPlot(plotObject, textX, textY)
 {
   // define margins
-  var margin = {top: 30, right: 240, bottom: 100, left: 70},
+  var margin = {top: 50, right: 240, bottom: 100, left: 100},
       width = 1150 - margin.left - margin.right,
       height = 550 - margin.top - margin.bottom;
 
@@ -50,46 +50,70 @@ function createPlot(plotObject, textX, textY)
     	.attr('height', height)
     	.attr('class', 'main');
 
-  // draw x-axis
+  // draw x-axis (note: margin of 15)
   main.append('g')
       .attr('class', 'x axis')
-    	.attr('transform', 'translate(0,' + height + ')')
+    	.attr('transform', 'translate(0,' + (height + 15) + ')')
     	.call(xAxis)
     .append("text")
       .attr("transform", "rotate(0)")
-      .attr("y", -10)
-      .attr("x", 840)
+      .attr("y", 60)
+      .attr("x", 823)
       .attr("dy", "0em")
       .attr("dx", "-.50em")
       .style("text-anchor", "end")
       .style("font", "16px arial")
       .text(textX);
 
-  // draw y-axis
+  // draw y-axis (note: margin of 15)
   main.append('g')
       .attr('class', 'y axis')
-    	.attr('transform', 'translate(0,0)')
+    	.attr('transform', 'translate(-15,0)')
     	.call(yAxis)
     .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
+      .attr("y", -80)
       .attr("dy", ".85em")
       .attr("dx", "-.65em")
       .style("text-anchor", "end")
       .style("font", "16px arial")
       .text(textY);
 
+  // define tooltip
+  /*
+  var tooltip = main.append("div")
+      .attr('class', 'd3-tip')
+      .style("opacity", 0);
+  */
+
   // draw the dots
   var scatterdots = main.append("svg:g");
-  scatterdots.selectAll("scatter-dots")
+  scatterdots.selectAll("scatterdots")
     .data(plotObject)
     .enter().append("svg:circle")
         .attr("stroke", "steelblue")
         .attr("stroke-width", 3)
         .attr("fill", "white")
-        .attr("cx", function (d,i) { return x(+d.variableX); })
+        .attr("cx", function (d) { return x(+d.variableX); })
         .attr("cy", function (d) { return y(+d.variableY); })
-        .attr("r", 8);
+        .attr("r", 8)
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                 .duration(200)
+                 .style("opacity", 1)
+                 .style("color", "white")
+            tooltip.html(
+              "<strong><span style='color:red'>" + x.invert(d3.event.pageX)
+               + "<br>" + y.invert(d3.event.pageY) + "<br>" + d.country
+               + "</strong></span>")
+                 .style("left", (d3.event.pageX + 5) + "px")
+                 .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                 .duration(500)
+                 .style("opacity", 0);
+        });
 
   // focus tracking (interactivity)
   var focus = main.append('g').style('display', 'none');
@@ -198,6 +222,20 @@ function createPlot(plotObject, textX, textY)
 	var y1 = leastSquaresCoeff.slope * xSeries[0] + leastSquaresCoeff.intercept;
 	var x2 = xSeries[xSeries.length - 1];
 	var y2 = leastSquaresCoeff.slope * xSeries[xSeries.length - 1] + leastSquaresCoeff.intercept;
+
+  // change endpoints of the regression line if y2 is lower/higher than minimal/maximal y-axis value
+  if (y2 < d3.min(ySeries))
+  {
+    y2 = d3.min(ySeries);
+    x2 = (d3.min(ySeries) - leastSquaresCoeff.intercept) / leastSquaresCoeff.slope;
+  }
+  else if (y2 > d3.max(ySeries))
+  {
+    y2 = d3.max(ySeries);
+    x2 = (d3.max(ySeries) - leastSquaresCoeff.intercept) / leastSquaresCoeff.slope;
+  }
+
+  // store coordinates in trendData
 	var trendData = [[x1,y1,x2,y2]];
 
   // define tooltip to display r-squared and regression equation
@@ -237,14 +275,14 @@ function createPlot(plotObject, textX, textY)
       decimalFormat(leastSquaresCoeff.intercept))
     .attr("class", "text-label")
     .attr("x", function(d) {return x(x2) + 15;})
-    .attr("y", function(d) {return y(y2) - 10;});
+    .attr("y", function(d) {return y(y2) - 25;});
 
   // display r-square on the chart
   main.append("text")
     .text("r-sq: " + decimalFormat(leastSquaresCoeff.rSquared))
     .attr("class", "text-label")
     .attr("x", function(d) {return x(x2) + 15;})
-    .attr("y", function(d) {return y(y2) + 10;});
+    .attr("y", function(d) {return y(y2) - 5;});
 
   // returns slope, intercept and r-square of the line
   function leastSquares(xSeries, ySeries) {

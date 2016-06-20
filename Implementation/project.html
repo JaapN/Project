@@ -31,43 +31,44 @@
       </div>
     </header>
 
-    <div id="worldMap" style="display:none"><br><b>World Map</b><br></div>
-    <div id="graph" style="display:none"><b>Graph</b><br></div>
-    <div id="scatterplot" style="display:none"><b>Scatterplot</b><br></div>
-    <br>
-
     <div id='menu'>
       <br>
       <div class="dropdown">
-        <button class="dropbtn">World Datamaps</button>
+        <button class="dropbtn" id="datamapsBtn">World Datamaps</button>
         <div class="dropdown-content">
-          <button onclick="getMap('Employment rate', 'Employment Rate (%) World Map')">Employment Rate (%) World Map</button>
-          <button onclick="getMap('Long-term unemployment rate', 'Long-term unemployment rate (%) World Map')">Long-term unemployment rate (%) World Map</button>
-          <button onclick="getMap('Labour market insecurity', 'Labour market insecurity (%) World Map')">Labour market insecurity (%) World Map</button>
-          <button onclick="getMap('Student skills', 'Student Skills (PISA) World Map')">Student Skills (PISA) World Map</button>
-          <button onclick="getMap('Life satisfaction', 'Life Satisfaction (0 - 10, Cantril Ladder) World Map')">Life Satisfaction (0 - 10, Cantril Ladder) World Map</button>
-          <button onclick="getMap('Life expectancy', 'Life expectancy (years) World Map')">Life expectancy (years) World Map</button>
-          <button onclick="getMap('Personal earnings', 'Personal Earnings (annual, US Dollar) World Map')">Personal Earnings (annual, US Dollar) World Map</button>
-          <button onclick="getMap('Air pollution', 'Air pollution (micrograms per cubic metre) World Map')">Air Pollution (MICRO_M3) World Map</button>
-          <button onclick="getMap('Water quality', 'Water quality (%) World Map')">Water quality (%) World Map</button>
-          <button onclick="getMap('Housing expenditure', 'Housing expenditure (%) World Map')">Housing expenditure (%) World Map</button>
-          <button onclick="getMap('Household net adjusted disposable income', 'Household net adjusted disposable income (annual, US Dollar) World Map')">Household net adjusted disposable income (annual, US Dollar) World Map</button>
-          <button onclick="getMap('Household net financial wealth', 'Household net financial wealth (annual, US Dollar) World Map')">Household net financial wealth (annual, US Dollar) World Map</button>
-          <button onclick="getMap('Educational attainment', 'Educational attainment (%) World Map')">Educational attainment (%) World Map</button>
-          <button onclick="getMap('Years in education', 'Years in education (years) World Map')">Years in education (years) World Map</button>
-          <button onclick="getMap('Voter turnout', 'Voter turnout (%) World Map')">Voter turnout (%) World Map</button>
-          <button onclick="getMap('Self-reported health', 'Self-reported health (%) World Map')">Self-reported health (%) World Map</button>
-          <button onclick="getMap('Employees working very long hours', 'Employees working very long hours (%) World Map')">Employees working very long hours (%) World Map</button>
-          <button onclick="getMap('Time devoted to leisure and personal care', 'Time devoted to leisure and personal care (hours/day) World Map')">Time devoted to leisure and personal care (hours/day) World Map</button>
-          <button onclick="getMap('Dwellings without basic facilities', 'Dwellings without basic facilities (%) World Map')">Dwellings without basic facilities (%) World Map</button>
-          <button onclick="getMap('Rooms per person', 'Rooms per person (ratio) World Map')">Rooms per person (ratio) World Map</button>
-          <button onclick="getMap('Stakeholder engagement for developing regulations', 'Stakeholder engagement for developing regulations (score) World Map')">Stakeholder engagement for developing regulations (score) World Map</button>
+          <br>
+          <select name="datamapping" id="datamapping" onchange="getMap(this.options[this.selectedIndex].value)">
+            <option selected disabled>Select a colour mapping variable</option>
+            <option value="Employment rate, Employment Rate (%) World Map">Employment Rate (%) World Map</option>
+            <option value="Long-term unemployment rate, Long-term unemployment rate (%) World Map">Long-term unemployment rate (%) World Map</option>
+            <option value="Labour market insecurity, Labour market insecurity (%) World Map">Labour market insecurity (%) World Map</option>
+            <option value="Student skills, Student Skills (PISA) World Map">Student Skills (PISA) World Map</option>
+            <option value="Life satisfaction, Life Satisfaction (0 - 10, Cantril Ladder) World Map">Life Satisfaction (0 - 10, Cantril Ladder) World Map</option>
+            <option value="Life expectancy, Life expectancy (years) World Map">Life expectancy (years) World Map</option>
+            <option value="Personal earnings, Personal Earnings (annual, US Dollar) World Map">Personal Earnings (annual, US Dollar) World Map</option>
+            <option value="Air pollution, Air pollution (micrograms per cubic metre) World Map">Air Pollution (MICRO_M3) World Map</option>
+            <option value="Water quality, Water quality (%) World Map">Water quality (%) World Map</option>
+            <option value="Housing expenditure, Housing expenditure (%) World Map">Housing expenditure (%) World Map</option>
+            <option value="Household net adjusted disposable income, Household net adjusted disposable income (annual, US Dollar) World Map">Household net adjusted disposable income (annual, US Dollar) World Map</option>
+            <option value="Household net financial wealth, Household net financial wealth (annual, US Dollar) World Map">Household net financial wealth (annual, US Dollar) World Map</option>
+            <option value="Educational attainment, Educational attainment (%) World Map">Educational attainment (%) World Map</option>
+            <option value="Years in education, Years in education (years) World Map">Years in education (years) World Map</option>
+            <option value="Voter turnout, Voter turnout (%) World Map">Voter turnout (%) World Map</option>
+            <option value="Self-reported health, Self-reported health (%) World Map">Self-reported health (%) World Map</option>
+            <option value="Employees working very long hours, Employees working very long hours (%) World Map">Employees working very long hours (%) World Map</option>
+            <option value="Time devoted to leisure and personal care, Time devoted to leisure and personal care (hours/day) World Map">Time devoted to leisure and personal care (hours/day) World Map</option>
+            <option value="Dwellings without basic facilities, Dwellings without basic facilities (%) World Map">Dwellings without basic facilities (%) World Map</option>
+            <option value="Rooms per person, Rooms per person (ratio) World Map">Rooms per person (ratio) World Map</option>
+            <option value="Stakeholder engagement for developing regulations, Stakeholder engagement for developing regulations (score) World Map">Stakeholder engagement for developing regulations (score) World Map</option>
+          </select>
+          <br></br>
         </div>
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn">Scatterplots: BLI - BLI</button>
+        <button class="dropbtn" id="plotBtnBLIBLI">Scatterplots: BLI - BLI</button>
         <div class="dropdown-content">
+          <br>
           Select an X-axis variable:
           <select name="varX" id="varX">
             <option value="Employment rate">Employment rate</option>
@@ -124,8 +125,9 @@
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn">Scatterplots: BLI - Field</button>
+        <button class="dropbtn" id="plotBtnBLIField">Scatterplots: BLI - Field</button>
         <div class="dropdown-content">
+          <br>
           Select an X-axis variable:
           <select name="varXmulti" id="varXmulti">
             <option value="Employment rate">Employment rate</option>
@@ -182,8 +184,9 @@
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn">Graph: BLI - BLI</button>
+        <button class="dropbtn" id="graphBtnBLIBLI">Graph: BLI - BLI</button>
         <div class="dropdown-content">
+          <br>
           Select an X-axis variable:
           <select name="graphX" id="graphX">
             <option value="Employment rate">Employment rate</option>
@@ -240,8 +243,9 @@
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn">Graph: BLI - Field</button>
+        <button class="dropbtn" id="graphBtnBLIField">Graph: BLI - Field</button>
         <div class="dropdown-content">
+          <br>
           Select an X-axis variable:
           <select name="graphXmulti" id="graphXmulti">
             <option value="Employment rate">Employment rate</option>
@@ -300,6 +304,10 @@
     </div>
     <br>
 
+    <div id="worldMap" style="display:none"><br><b>World Map</b><br></div>
+    <div id="graph" style="display:none"><b>Graph</b><br></div>
+    <div id="scatterplot" style="display:none"><b>Scatterplot</b><br></div>
+    <br>
     <svg class="barchart" id="barchart" style="display:none"></svg>
 
     <div id='about'>
