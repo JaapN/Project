@@ -12,7 +12,6 @@
     <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
     <script src="http://datamaps.github.io/scripts/0.4.4/datamaps.world.min.js"></script>
-    <script src="http://datamaps.github.com/scripts/datamaps-all.js"></script>
     <script src="https://d3js.org/d3-queue.v2.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script src="maps.js"></script>
@@ -27,7 +26,7 @@
 
     <header id="header">
       <div id='title'>
-        <h1>Exploration of Better Life Index (BLI) data and its relation with educational graduate field distribution by mapping of BLI variables</h1>
+        <h1>Exploration of Better Life Index (BLI) data and its relation with Educational Graduate Field Distribution</h1>
       </div>
     </header>
 
@@ -184,7 +183,7 @@
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn" id="graphBtnBLIBLI">Graph: BLI - BLI</button>
+        <button class="dropbtn" id="graphBtnBLIBLI">Graphs: BLI - BLI</button>
         <div class="dropdown-content">
           <br>
           Select an X-axis variable:
@@ -243,7 +242,7 @@
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn" id="graphBtnBLIField">Graph: BLI - Field</button>
+        <button class="dropbtn" id="graphBtnBLIField">Graphs: BLI - Field</button>
         <div class="dropdown-content">
           <br>
           Select an X-axis variable:
@@ -311,18 +310,23 @@
     <svg class="barchart" id="barchart" style="display:none"></svg>
 
     <div id='about'>
-      <font size='5'><b>World Maps</b></font><br>
-      When scrolling over a country on the map, information about the country name and data will pop up.<br>
+      <font size='5'><b>World Datamaps</b></font><br>
+      The world map will be coloured by the selected variable's values per country and its distribution for all countries. It displays 'onchange'; when switching variable, the map will become visible.<br>
+      When scrolling over a country on the map, information about the country name and data will pop up.<br></br>
+
       The borders of a country will get brightly coloured as well, which will make it clear which country you are looking at.
-      There is a clear contrast between the used fill colours and highlighted border colour.<br></br>
+      There is a clear contrast between the used green palet of fill colours and the highlighted border colours.<br></br>
 
       <font size='5'><b>Grouped Barcharts</b></font><br>
       Click on a country to draw and display the respective educational field distribution barchart below the map and select menu.
       Do note however that data about educational field distribution is not available for all countries, even some of those for which there is data to colour the respective country with. When attempting to select a country for which there is no education field data, no barchart will be displayed.
       The educational field data represents the distribution of the total tertiary education (levels 5 to 8) of that country. The data for the Netherlands and Poland has been extrapolated from the known distribution of Bachelor's (level 6) and Master's (level 7) level graduates.<br></br>
 
-      <font size='5'><b>Plots</b></font><br>
-      Select a combination of variables to have them plotted against each other.
+      <font size='5'><b>Scatterplots and Graphs</b></font><br>
+      Select a combination of variables to have them plotted against each other. There is also a tooltip for every datapoint and regression line.<br>
+      The regression line is based on least squares of error. Note that it has an intercept too, even though the x-axis usually doesn't begin at a value of 0. The regression line will be cut short if it would breach through an axis.<br></br>
+
+      The graphs are relatively similar to the scatterplots, but instead attempt to display a continuous course. However, none of the plotted data is actually continuous. It is merely meant to be a tool to highlight a possible relation between the plotted variables.
     </div>
 
     <div id='footer'>

@@ -7,7 +7,7 @@
 function createBarchart(country, barchartObject, groupNames)
 {
     // define margins
-    var margin = {top: 20, right: 30, bottom: 100, left: 200},
+    var margin = {top: 20, right: 30, bottom: 200, left: 100},
         width = 1150 - margin.left - margin.right,
         height = 700 - margin.top - margin.bottom;
 
@@ -55,7 +55,7 @@ function createBarchart(country, barchartObject, groupNames)
     barchart.append("g")
         .attr("class", "title")
       .append("text")
-        .attr("x", width / 3)
+        .attr("x", width / 2.5)
         .attr("y", 10)
         .style("font", "36px cambria")
         .text(country);
@@ -69,7 +69,7 @@ function createBarchart(country, barchartObject, groupNames)
         .style("text-anchor", "end")
         .attr("dx", "-.5em")
         .attr("dy", ".15em")
-        .attr("transform", "rotate(-20)");
+        .attr("transform", "rotate(-60)");
 
     // y-axis
     barchart.append("g")
@@ -131,6 +131,5 @@ function createBarchart(country, barchartObject, groupNames)
   else
   {
     d3.select("#barchart").style("display", "none");
-    // d3.select("#noData").html("<font size='14px'><center><b>Sorry! There is no data for this country!</b></center></font>");
   }
 }

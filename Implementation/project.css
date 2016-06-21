@@ -1,28 +1,35 @@
 /*
+ * Programmeerproject
+ * Jaap Nieuwenhuizen
+ */
+
+/*
 * HTML CSS
 */
 #header {
   position: relative;
   top: 0;
   left: 0;
-  height: 100px;
+  height: 140px;
   width: 1200px;
   overflow: hidden; /* Disables scrollbars on the header frame. To enable scrollbars, change "hidden" to "scroll" */
   background: #BCCE98;
   padding: 5px;
-  font: 18px sans-serif;
+  font: 17px sans-serif;
   margin-bottom: 0px;
 }
 
 #title {
-  font: 15px cambria;
+  font: 16px cambria;
   padding: 10px;
+  color: black;
 }
 
 #menu {
   background: #DAE9BC;
   position: relative;
   width: 1200px;
+  z-index: 2;
 }
 
 body {
@@ -44,7 +51,7 @@ body {
   background-color: #DAE9BC;
   margin: 40px;
   padding: 10px;
-  width: 1090px;
+  width: 1100px;
 }
 
 #name {
@@ -52,20 +59,42 @@ body {
 
 #worldMap {
   height: 500px;
-  width: 1150px;
+  width: 1180px;
   margin-bottom: 80px;
   text-align: center;
   font: sans-serif;
   font-size: 16px;
   background-color: '#006994';
+  position: relative;
 }
 
 #graph, #scatterplot {
   height: 550px;
-  width: 1200px;
+  width: 1180px;
   text-align: center;
   font: sans-serif;
   font-size: 16px;
+}
+
+
+/*
+ * DATAMAPS CSS
+ */
+.datamaps-legend dt, .datamaps-legend dd {
+  float: left;
+  margin: 0 3px 0 0;
+
+} .datamaps-legend dd {
+  width: 25px;
+  margin-right: 6px;
+  border-radius: 3px;
+
+} .datamaps-legend {
+  padding-bottom: 20px;
+  z-index: 1001;
+  position: absolute;
+  left: 4px;
+  font-size: 10px;
 }
 
 
@@ -163,7 +192,7 @@ body {
 }
 
 .focusCircle {
-    fill: firebrick;
+    fill: red;
 }
 
 .overlay {

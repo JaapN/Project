@@ -18,7 +18,8 @@ function createMap(varSeries, datamapObject)
      geographyConfig: {
        backgroundColor: '#006994',
        borderColor: 'rgba(0,0,0,0.5)',
-       highlightBorderColor: 'rgba(255,0,255,1)',
+       highlightFillColor: 'default',
+       highlightBorderColor: 'rgba(255,0,0,1)',
        popupTemplate: function(geography, data) {
            if (data)
            {
@@ -34,7 +35,7 @@ function createMap(varSeries, datamapObject)
        }
      },
      fills: {
-       defaultFill: '#eeeeee',
+       defaultFill: '#e0e0e0',
        extremelyLow: '#ccece6',
        veryLow: '#99d8c9',
        Low: '#66c2a4',
@@ -47,18 +48,18 @@ function createMap(varSeries, datamapObject)
    });
 
    // define label variables for legend
-   labelDefault = " Missing Data (NaN / undefined / 0):";
+   labelDefault = " Missing Data:";
    labelExtLow = 'Extremely low (lower than ' + varSeries[2 * Math.round(varSeries.length / 20)] + "): ";
    labelVeryLow = ' Very low (' + varSeries[2 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[5 * Math.round(varSeries.length / 20)]) + "): ";
    labelLow = ' Low (' + varSeries[5 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[8 * Math.round(varSeries.length / 20)]) + "): ";
    labelMedium = ' Medium (' + varSeries[8 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[12 * Math.round(varSeries.length / 20)]) + "): ";
    labelHigh = ' High (' + varSeries[12 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[15 * Math.round(varSeries.length / 20)]) + "): ";
    labelVeryHigh = ' Very high (' + varSeries[15 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[18 * Math.round(varSeries.length / 20)]) + "): ";
-   labelExtHigh = ' Extremely high (higher than or equal as ' + varSeries[18 * Math.round(varSeries.length / 20)] + "): ";
+   labelExtHigh = ' Extremely high (higher than/equal as ' + varSeries[18 * Math.round(varSeries.length / 20)] + "): ";
 
    // add legend
    worldDatamap.legend({
-    legendTitle : "",
+    legendTitle: "",
     defaultFillName: labelDefault,
     labels: {
       extremelyLow: labelExtLow,
@@ -67,7 +68,7 @@ function createMap(varSeries, datamapObject)
       Medium: labelMedium,
       High: labelHigh,
       veryHigh: labelVeryHigh,
-      extremelyHigh: labelExtHigh
+      extremelyHigh: labelExtHigh,
     }
   });
 }
