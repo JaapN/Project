@@ -53,6 +53,16 @@ svg.selectAll(".dot")
                .style("opacity", 0);
       });
 
+
+
+
+  // define tooltip
+  var tooltip = main.append("div")
+      .attr('class', 'd3-tip')
+      .style("opacity", 0);
+
+
+
 en de css:
 
 .d3-tip {

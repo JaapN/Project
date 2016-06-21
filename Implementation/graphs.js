@@ -161,7 +161,7 @@ function createGraph(graphObject, textX, textY)
         // build barchart for selected datapoint
         getBarchart(countryVal);
 
-        // define label for crosshairs
+        // define and place label for crosshairs
         labelPoint.attr("x", xVal + 10).attr("y", yVal + 15).style("text-anchor", "center");
         labelPoint.text(function() {
           return countryVal + " (" + decimalFormat(x.invert(xVal)) + ", " + decimalFormat(y.invert(yVal)) + ")";

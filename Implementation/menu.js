@@ -48,7 +48,7 @@ function getMap(input)
     // sort series
     varSeries.sort(function(a,b) { return a - b;});
 
-    // create a new object of the loaded data
+    // create a new object of the loaded data; see maps.js for colorData
     datamapObject = {};
     data.forEach(function(d) {
      if (d.indicator == variable)
