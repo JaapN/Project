@@ -238,6 +238,49 @@ function createPlot(plotObject, textX, textY)
       .attr('height', height)
       .on('mouseout', function() { focus.style('display', 'none'); labelPoint.style('display', 'none'); })
       .on('mousemove', function() {
+          /*
+          // define mouse
+          var mouse = d3.mouse(this);
+          var mouseX = x.invert(mouse[0]);
+
+          // returns the index to the current data item
+          var indexItem = bisectX(plotObject, mouseX);
+
+          // store values left and right of the mouse
+          var dLeft = plotObject[indexItem - 1]
+          var dRight = plotObject[indexItem];
+
+          // work out which x-value is closest to the mouse
+          var dSelected = (+dRight.variableX - +dLeft.variableX) / 2.0 > mouseX - +dLeft.variableX ? dLeft : dRight;
+
+          // store selected coordinate
+          var xVal = x(+dSelected.variableX);
+          var yVal = y(+dSelected.variableY);
+          var countryVal = dSelected.country;
+
+          // adjust focus
+          focus.select('#focusCircle')
+              .attr('cx', xVal)
+              .attr('cy', yVal);
+          focus.select('#focusLineX')
+              .attr('x1', xVal).attr('y1', y(yDomain[0]))
+              .attr('x2', xVal).attr('y2', y(yDomain[1]));
+          focus.select('#focusLineY')
+              .attr('x1', x(xDomain[0])).attr('y1', yVal)
+              .attr('x2', x(xDomain[1])).attr('y2', yVal);
+
+          labelPoint.attr("x", (xVal + 15)).attr("y", (yVal - 7)).style("text-anchor", "center");
+          labelPoint.text(function() {
+            return countryVal + " (" + decimalFormat(x.invert(xVal)) + ", " + decimalFormat(y.invert(yVal)) + ")";
+          });
+
+
+          // mouseX - d0[0] > d1[0] - mouseX ? d1 : d0;
+
+
+          */
+
+
           // define mouse coordinates
           var mouse = d3.mouse(this);
           var mouseX = x.invert(mouse[0]);

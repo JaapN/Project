@@ -129,47 +129,47 @@ function createGraph(graphObject, textX, textY)
       .on('mouseover', function() { focus.style('display', null); })
       .on('mouseout', function() { focus.style('display', 'none'); })
       .on('mousemove', function() {
-        // get mouse coordinates
-        var mouse = d3.mouse(this);
-        var mouseX = x.invert(mouse[0]);
+          // get mouse coordinates
+          var mouse = d3.mouse(this);
+          var mouseX = x.invert(mouse[0]);
 
-        // returns the index to the current data item
-        var i = bisectX(graphObject, mouseX);
+          // returns the index to the current data item
+          var i = bisectX(graphObject, mouseX);
 
-        var d0 = graphObject[i - 1]
-        var d1 = graphObject[i];
-        // work out which date value is closest to the mouse
-        var d_index = (+d1.variableX - +d0.variableX) / 2.0 > mouseX - +d0.variableX ? d0 : d1;
-        // mouseX - d0[0] > d1[0] - mouseX ? d1 : d0;
+          var d0 = graphObject[i - 1]
+          var d1 = graphObject[i];
+          // work out which date value is closest to the mouse
+          var d_index = (+d1.variableX - +d0.variableX) / 2.0 > mouseX - +d0.variableX ? d0 : d1;
+          // mouseX - d0[0] > d1[0] - mouseX ? d1 : d0;
 
-        // store selected coordinates
-        var xVal = x(+d_index.variableX);
-        var yVal = y(+d_index.variableY);
-        var countryVal = d_index.country;
+          // store selected coordinates
+          var xVal = x(+d_index.variableX);
+          var yVal = y(+d_index.variableY);
+          var countryVal = d_index.country;
 
-        // adjust focus
-        focus.select('#focusCircle')
-            .attr('cx', xVal)
-            .attr('cy', yVal);
-        focus.select('#focusLineX')
-            .attr('x1', xVal).attr('y1', y(yDomain[0]))
-            .attr('x2', xVal).attr('y2', y(yDomain[1]));
-        focus.select('#focusLineY')
-            .attr('x1', x(xDomain[0])).attr('y1', yVal)
-            .attr('x2', x(xDomain[1])).attr('y2', yVal);
+          // adjust focus
+          focus.select('#focusCircle')
+              .attr('cx', xVal)
+              .attr('cy', yVal);
+          focus.select('#focusLineX')
+              .attr('x1', xVal).attr('y1', y(yDomain[0]))
+              .attr('x2', xVal).attr('y2', y(yDomain[1]));
+          focus.select('#focusLineY')
+              .attr('x1', x(xDomain[0])).attr('y1', yVal)
+              .attr('x2', x(xDomain[1])).attr('y2', yVal);
 
-        // build barchart for selected datapoint
-        getBarchart(countryVal);
+          // build barchart for selected datapoint
+          getBarchart(countryVal);
 
-        // define and place label for crosshairs
-        labelPoint.attr("x", xVal + 10).attr("y", yVal + 15).style("text-anchor", "center");
-        labelPoint.text(function() {
-          return countryVal + " (" + decimalFormat(x.invert(xVal)) + ", " + decimalFormat(y.invert(yVal)) + ")";
-        });
+          // define and place label for crosshairs
+          labelPoint.attr("x", xVal + 10).attr("y", yVal + 15).style("text-anchor", "center");
+          labelPoint.text(function() {
+            return countryVal + " (" + decimalFormat(x.invert(xVal)) + ", " + decimalFormat(y.invert(yVal)) + ")";
+          });
 
-        // put a text label in the lower-right corner
-        label.text(function() {
-          return "x=" + decimalFormat(x.invert(mouse[0])) + ", y=" + decimalFormat(y.invert(mouse[1]));
-        });
+          // put a text label in the lower-right corner
+          label.text(function() {
+            return "x=" + decimalFormat(x.invert(mouse[0])) + ", y=" + decimalFormat(y.invert(mouse[1]));
+          });
       });
 }
