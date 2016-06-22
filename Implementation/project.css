@@ -192,7 +192,7 @@ body {
 }
 
 .focusCircle {
-    fill: red;
+    fill: green;
 }
 
 .overlay {
@@ -239,26 +239,11 @@ body {
 /*
  * BARCHART CSS
  */
-/* Change the bars to steelblue */
-.bar {
-  fill: steelblue;
-}
-
-/* When hovering over the bars, change them to brown */
-.bar:hover {
-  fill: brown;
-}
-
-/* Set the label text */
-.label {
-  fill: black;
-  font: 12px verdana;
-  text-anchor: middle;
-}
 
 
 /*
  * SCATTERPLOT CSS
  */
-.main text {
+.scatterdot:hover {
+  fill: firebrick;
 }

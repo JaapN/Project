@@ -98,7 +98,7 @@ function createGraph(graphObject, textX, textY)
   var points = svg.selectAll(".point")
           .data(graphObject).enter();
   points.append("svg:circle")
-     .attr("stroke", "green")
+     .attr("stroke", "red")
      .attr("fill", "white")
      .attr("cx", function(d, i) { return x(+d.variableX) })
      .attr("cy", function(d, i) { return y(+d.variableY) })

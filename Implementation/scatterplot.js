@@ -116,20 +116,6 @@ function createPlot(plotObject, textX, textY)
   var trendline = main.selectAll(".trendline")
     .data(trendData);
 
-  // define tooltip to display r-squared and regression equation
-  var tipRegrLine = d3.tip()
-      .attr('class', 'd3-tip')
-      .offset([-10, 412])
-      .html(function(d) {
-        return "<strong>Equation:</strong> <span style='color:red'>" +
-        decimalFormat(leastSquaresCoeff.slope) + "x + " +
-        decimalFormat(leastSquaresCoeff.intercept) +
-        "</span><br><strong>R-Squared:</strong> <span style='color:red'>" +
-        decimalFormat(leastSquaresCoeff.rSquared) + "</span>";
-      });
-  // initialise tooltip
-  main.call(tipRegrLine);
-
   // draw the regression line
 	trendline.enter()
 		.append("line")
@@ -139,9 +125,7 @@ function createPlot(plotObject, textX, textY)
 		.attr("x2", function(d) { return x(d[2]); })
 		.attr("y2", function(d) { return y(d[3]); })
 		.attr("stroke", "steelblue")
-		.attr("stroke-width", 3)
-    .on('mouseover', tipRegrLine.show)
-    .on('mouseout', tipRegrLine.hide);
+		.attr("stroke-width", 3);
 
   // display equation on the chart
   main.append("text")
@@ -197,198 +181,31 @@ function createPlot(plotObject, textX, textY)
   /*
    * Draw the data
    */
+  // define tooltip to display country and coordinates per datapoint
+  var tooltip = d3.tip()
+     .attr('class', 'd3-tip')
+     .offset([-10, 0])
+     .html(function(d) {
+       return "<strong>Country:</strong> <span style='color:red'>" +
+       d.country + "</span><br><strong>Coordinates:</strong> <span style='color:red'>("
+       + decimalFormat(d.variableX) + ", " + decimalFormat(d.variableY) + ")</span>";
+     });
+  // initialise tooltip
+  main.call(tooltip);
+
   // draw the dots
   var scatterdots = main.append("svg:g");
   scatterdots.selectAll("scatterdots")
     .data(plotObject)
     .enter().append("svg:circle")
+        .attr("class", "scatterdot")
         .attr("stroke", "green")
         .attr("stroke-width", 3)
         .attr("fill", "white")
         .attr("cx", function (d) { return x(+d.variableX); })
         .attr("cy", function (d) { return y(+d.variableY); })
-        .attr("r", 8);
-
-  // focus tracking (interactivity)
-  var focus = main.append('g').style('display', 'none');
-  focus.append('line')
-      .attr('id', 'focusLineX')
-      .attr('class', 'focusLine');
-  focus.append('line')
-      .attr('id', 'focusLineY')
-      .attr('class', 'focusLine');
-  focus.append('circle')
-      .attr('id', 'focusCircle')
-      .attr('r', 6.5)
-      .attr('class', 'circle focusCircle');
-
-  // get the object count (index + 1) of the x-value to the left of inserted value
-  var bisectX = d3.bisector(function(d) { return +d.variableX; }).left;
-  // get the object count (index + 1) of the y-value below and above of inserted value
-  var bisectYbot = d3.bisector(function(d) { return +d.variableY; }).left;
-  var bisectYtop = d3.bisector(function(d) { return +d.variableY; }).right;
-
-  // define tooltip to display value of selected dot
-  var labelPoint = main.append("text");
-
-  // make it interactive
-  main.append('rect')
-      .attr('class', 'overlay')
-      .attr('width', width)
-      .attr('height', height)
-      .on('mouseout', function() { focus.style('display', 'none'); labelPoint.style('display', 'none'); })
-      .on('mousemove', function() {
-          /*
-          // define mouse
-          var mouse = d3.mouse(this);
-          var mouseX = x.invert(mouse[0]);
-
-          // returns the index to the current data item
-          var indexItem = bisectX(plotObject, mouseX);
-
-          // store values left and right of the mouse
-          var dLeft = plotObject[indexItem - 1]
-          var dRight = plotObject[indexItem];
-
-          // work out which x-value is closest to the mouse
-          var dSelected = (+dRight.variableX - +dLeft.variableX) / 2.0 > mouseX - +dLeft.variableX ? dLeft : dRight;
-
-          // store selected coordinate
-          var xVal = x(+dSelected.variableX);
-          var yVal = y(+dSelected.variableY);
-          var countryVal = dSelected.country;
-
-          // adjust focus
-          focus.select('#focusCircle')
-              .attr('cx', xVal)
-              .attr('cy', yVal);
-          focus.select('#focusLineX')
-              .attr('x1', xVal).attr('y1', y(yDomain[0]))
-              .attr('x2', xVal).attr('y2', y(yDomain[1]));
-          focus.select('#focusLineY')
-              .attr('x1', x(xDomain[0])).attr('y1', yVal)
-              .attr('x2', x(xDomain[1])).attr('y2', yVal);
-
-          labelPoint.attr("x", (xVal + 15)).attr("y", (yVal - 7)).style("text-anchor", "center");
-          labelPoint.text(function() {
-            return countryVal + " (" + decimalFormat(x.invert(xVal)) + ", " + decimalFormat(y.invert(yVal)) + ")";
-          });
-
-
-          // mouseX - d0[0] > d1[0] - mouseX ? d1 : d0;
-
-
-          */
-
-
-          // define mouse coordinates
-          var mouse = d3.mouse(this);
-          var mouseX = x.invert(mouse[0]);
-          var mouseY = y.invert(mouse[1]);
-
-          // returns the index to the current data item
-          var indexItemX = bisectX(plotObject, mouseX) - 1;
-          var indexItemYbot = bisectYbot(plotObject, mouseY) - 1;
-          var indexItemYtop = bisectYtop(plotObject, mouseY) - 1;
-
-          console.log(
-            "mouseY:", mouseY,
-            "indexTop:", indexItemYtop,
-            "indexBot:", indexItemYbot
-          );
-
-          // store values left, right and below the mouse
-          var dLeft = plotObject[indexItemX];
-          var dRight = plotObject[indexItemX + 1];
-          var dBottom = plotObject[indexItemYbot];
-          var dTop = plotObject[indexItemYtop];
-
-          // work out which x-value and y-value is closest to the mouse
-          var dSelectedX = (+dRight.variableX - +dLeft.variableX) / 2.0 > mouseX - +dLeft.variableX ? dLeft : dRight;
-          var dSelectedY = (+dTop.variableY - +dBottom.variableY) / 2.0 > mouseY - +dBottom.variableY ? dBottom : dTop;
-
-          console.log(
-            "dLeft: ", dLeft, '\n',
-            "dRight: ", dRight, '\n',
-            "dBottom: ", dBottom, '\n',
-            "dTop: ", dTop, '\n',
-            "dSelectedX: ", dSelectedX, '\n',
-            "dSelectedY: ", dSelectedY
-          );
-
-          // work out which datapoint to select depending on which is closest to the mouse
-          if ((dSelectedX == dLeft) && (dSelectedX.variableY == dSelectedY.variableY))
-          {
-            // display focus and label
-            focus.style('display', null);
-            labelPoint.style('display', null);
-
-            // select this indiced object
-            var dSelected = dLeft;
-          }
-          else if ((dSelectedX == dRight) && (dSelectedX.variableY == dSelectedY.variableY))
-          {
-            // display focus
-            focus.style('display', null);
-            labelPoint.style('display', null);
-
-            // select this indiced object
-            var dSelected = dRight;
-          }
-          else if ((dSelectedY == dBottom) && (dSelectedY.variableX == dSelectedX.variableX))
-          {
-            // display focus
-            focus.style('display', null);
-            labelPoint.style('display', null);
-
-            // select this indiced object
-            var dSelected = dBottom;
-          }
-          else if ((dSelectedY == dTop) && (dSelectedY.variableX == dSelectedX.variableX))
-          {
-            // display focus
-            focus.style('display', null);
-            labelPoint.style('display', null);
-
-            // select this indiced object
-            var dSelected = dTop;
-          }
-          // don't define dSelected if there is no match between X and Y
-          else
-          {
-            // don't display focus and label
-            var dSelected = undefined;
-            focus.style('display', 'none');
-            labelPoint.style('display', 'none');
-          }
-
-          // if dSelected is defined, select scatterdot
-          if (dSelected != undefined)
-          {
-            // store selected coordinate
-            var xVal = x(+dSelected.variableX);
-            var yVal = y(+dSelected.variableY);
-            var countryVal = dSelected.country;
-
-            // adjust focus
-            focus.select('#focusCircle')
-                .attr('cx', xVal)
-                .attr('cy', yVal);
-            focus.select('#focusLineX')
-                .attr('x1', xVal).attr('y1', y(yDomain[0]))
-                .attr('x2', xVal).attr('y2', y(yDomain[1]));
-            focus.select('#focusLineY')
-                .attr('x1', x(xDomain[0])).attr('y1', yVal)
-                .attr('x2', x(xDomain[1])).attr('y2', yVal);
-
-            // build barchart for selected datapoint
-            getBarchart(countryVal);
-
-            // define and set label for crosshairs
-            labelPoint.attr("x", (xVal + 15)).attr("y", (yVal - 7)).style("text-anchor", "center").style("font-weight", "bold");
-            labelPoint.text(function() {
-              return countryVal + " (" + decimalFormat(x.invert(xVal)) + ", " + decimalFormat(y.invert(yVal)) + ")";
-            });
-          }
-      });
+        .attr("r", 8)
+        .on("click", function(d) { getBarchart(d.country); })
+        .on("mouseover", tooltip.show)
+        .on("mouseout", tooltip.hide);
 }
