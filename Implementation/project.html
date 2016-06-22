@@ -65,7 +65,7 @@
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn" id="plotBtnBLIBLI">Scatterplots: BLI - BLI</button>
+        <button class="dropbtn" id="plotBtnBLIBLI">BLI Scatterplots</button>
         <div class="dropdown-content">
           <br>
           Select an X-axis variable:
@@ -124,7 +124,7 @@
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn" id="plotBtnBLIField">Scatterplots: BLI - Field</button>
+        <button class="dropbtn" id="plotBtnBLIField">Multidata Scatterplots</button>
         <div class="dropdown-content">
           <br>
           Select an X-axis variable:
@@ -183,7 +183,7 @@
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn" id="graphBtnBLIBLI">Graphs: BLI - BLI</button>
+        <button class="dropbtn" id="graphBtnBLIBLI">BLI Graphs</button>
         <div class="dropdown-content">
           <br>
           Select an X-axis variable:
@@ -242,7 +242,7 @@
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn" id="graphBtnBLIField">Graphs: BLI - Field</button>
+        <button class="dropbtn" id="graphBtnBLIField">Multidata Graphs</button>
         <div class="dropdown-content">
           <br>
           Select an X-axis variable:
@@ -317,21 +317,26 @@
       The borders of a country will get brightly coloured as well, which will make it clear which country you are looking at.
       There is a clear contrast between the used green palet of fill colours and the highlighted border colours.<br></br>
 
-      <font size='5'><b>Grouped Barcharts</b></font><br>
-      Click on a country to draw and display the respective educational field distribution barchart below the map and select menu.
-      Do note however that data about educational field distribution is not available for all countries, even some of those for which there is data to colour the respective country with. When attempting to select a country for which there is no education field data, no barchart will be displayed.
-      The educational field data represents the distribution of the total tertiary education (levels 5 to 8) of that country. The data for the Netherlands and Poland has been extrapolated from the known distribution of Bachelor's (level 6) and Master's (level 7) level graduates.<br></br>
-
       <font size='5'><b>Scatterplots and Graphs</b></font><br>
       Select a combination of variables to have them plotted against each other. There is also a tooltip for every datapoint and regression line.<br>
       The regression line is based on least squares of error. Note that it has an intercept too, even though the x-axis usually doesn't begin at a value of 0. The regression line will be cut short if it would breach through an axis.<br></br>
 
-      The graphs are relatively similar to the scatterplots, but instead attempt to display a continuous course. However, none of the plotted data is actually continuous. It is merely meant to be a tool to highlight a possible relation between the plotted variables.
+      The graphs are relatively similar to the scatterplots, but instead attempt to display a continuous course. However, none of the plotted data is actually continuous. It is merely meant to be a tool to highlight a possible non-linear relation between the plotted variables.<br></br>
+
+      <font size='5'><b>Grouped Barcharts</b></font><br>
+      Click on a country of a datamap or a datapoint of a scatterplot or hover over a datapoint of a graph to draw and display the respective country's educational field distribution barchart below the visualisation.
+      Do note however that data about educational field distribution is not available for all countries, even some of those for which there is data to colour the respective country with or for which BLI data can be displayed. When attempting to select a country for which there is no education field data, no barchart will be displayed.
+      The educational field data represents the distribution of the total tertiary education (levels 5 to 8) of that country. The data for the Netherlands and Poland has been extrapolated from the known distribution of Bachelor's (level 6) and Master's (level 7) level graduates.
     </div>
 
     <div id='footer'>
-      <b>Data:</b> <a href="http://stats.oecd.org/Index.aspx?DataSetCode=BLI"><font color="blue">http://stats.oecd.org/Index.aspx?DataSetCode=BLI</font></a><br>
-      <b>Map:</b> <a href="https://github.com/tillnagel/unfolding/blob/master/data/data/countries-population-density.csv"><font color="blue">https://github.com/tillnagel/unfolding/blob/master/data/data/countries-population-density.csv</font></a><br>
+      <b>Data BLI:</b> <a href="http://stats.oecd.org/Index.aspx?DataSetCode=BLI"><font color="blue">http://stats.oecd.org/Index.aspx?DataSetCode=BLI</font></a><br>
+      <b>Data Grad Fields:</b> <a href="https://stats.oecd.org/Index.aspx?DataSetCode=EAG_GRAD_ENTR_FIELD"><font color="blue">https://stats.oecd.org/Index.aspx?DataSetCode=EAG_GRAD_ENTR_FIELD</font></a><br>
+      <b>D3:</b> <a href="//d3js.org/d3.v3.min.js"><font color="blue">//d3js.org/d3.v3.min.js</font></a><br>
+      <b>D3 World Datamap:</b> <a href="http://datamaps.github.io/scripts/0.4.4/datamaps.world.min.js"><font color="blue">http://datamaps.github.io/scripts/0.4.4/datamaps.world.min.js</font></a><br>
+      <b>D3 Queue:</b> <a href="https://d3js.org/d3-queue.v2.min.js"><font color="blue">https://d3js.org/d3-queue.v2.min.js</font></a><br>
+      <b>D3 Tooltip:</b> <a href="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"><font color="blue">http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js</font></a><br>
+      <b>D3 Encoding topology:</b> <a href="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"><font color="blue">//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js</font></a><br>
       <b>Colour Schemes:</b> <a href="http://colorbrewer2.org/"><font color="blue">http://colorbrewer2.org/</font></a>
       <br></br>
 

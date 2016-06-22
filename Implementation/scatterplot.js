@@ -59,8 +59,8 @@ function createPlot(plotObject, textX, textY)
     	.call(xAxis)
     .append("text")
       .attr("transform", "rotate(0)")
-      .attr("y", 60)
-      .attr("x", 770)
+      .attr("y", 55)
+      .attr("x", 765)
       .attr("dy", "0em")
       .attr("dx", "-.50em")
       .style("text-anchor", "end")
@@ -127,23 +127,6 @@ function createPlot(plotObject, textX, textY)
 		.attr("stroke", "steelblue")
 		.attr("stroke-width", 3);
 
-  // display equation on the chart
-  main.append("text")
-    .text("eq: " + decimalFormat(leastSquaresCoeff.slope) + "x + "
-     + decimalFormat(leastSquaresCoeff.intercept))
-      .attr("class", "text-label")
-      .attr("x", function(d) {return x(x2) + 15;})
-      .attr("y", function(d) {return y(y2) - 25;})
-      .attr("font-weight", "bold");
-
-  // display r-square on the chart
-  main.append("text")
-    .text("r-sq: " + decimalFormat(leastSquaresCoeff.rSquared))
-      .attr("class", "text-label")
-      .attr("x", function(d) {return x(x2) + 15;})
-      .attr("y", function(d) {return y(y2) - 5;})
-      .attr("font-weight", "bold");
-
   // returns slope, intercept and r-square of the line
   function leastSquares(xSeries, ySeries) {
     // define function necessary for calculating averages
@@ -208,4 +191,19 @@ function createPlot(plotObject, textX, textY)
         .on("click", function(d) { getBarchart(d.country); })
         .on("mouseover", tooltip.show)
         .on("mouseout", tooltip.hide);
+
+  // display equation on the chart
+  main.append("text")
+    .text("Equation: " + decimalFormat(leastSquaresCoeff.slope) + "x + "
+     + decimalFormat(leastSquaresCoeff.intercept))
+      .attr("class", "text-label")
+      .attr("x", function(d) {return 770;})
+      .attr("y", function(d) {return y(y2) - 20;});
+
+  // display r-square on the chart
+  main.append("text")
+    .text("R squared: " + decimalFormat(leastSquaresCoeff.rSquared))
+      .attr("class", "text-label")
+      .attr("x", function(d) {return 770;})
+      .attr("y", function(d) {return y(y2);});
 }

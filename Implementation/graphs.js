@@ -9,7 +9,7 @@
 function createGraph(graphObject, textX, textY)
 {
   // define margins
-  var margin = {top: 30, right: 300, bottom: 100, left: 70},
+  var margin = {top: 50, right: 315, bottom: 120, left: 100},
       width = 1150 - margin.left - margin.right,
       height = 550 - margin.top - margin.bottom;
 

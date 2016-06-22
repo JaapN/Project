@@ -77,7 +77,6 @@ function getBarchart(country)
 {
   // clear the previous barchart
   d3.select('#barchart').selectAll("*").remove();
-  d3.selectAll('.d3-tip').remove();
 
   // load the data
   d3.json('fields_grad_info.json',

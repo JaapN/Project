@@ -48,14 +48,14 @@ function createMap(varSeries, datamapObject)
    });
 
    // define label variables for legend
-   labelDefault = " Missing Data:";
-   labelExtLow = 'Extremely low (lower than ' + varSeries[2 * Math.round(varSeries.length / 20)] + "): ";
-   labelVeryLow = ' Very low (' + varSeries[2 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[5 * Math.round(varSeries.length / 20)]) + "): ";
-   labelLow = ' Low (' + varSeries[5 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[8 * Math.round(varSeries.length / 20)]) + "): ";
-   labelMedium = ' Medium (' + varSeries[8 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[12 * Math.round(varSeries.length / 20)]) + "): ";
-   labelHigh = ' High (' + varSeries[12 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[15 * Math.round(varSeries.length / 20)]) + "): ";
-   labelVeryHigh = ' Very high (' + varSeries[15 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[18 * Math.round(varSeries.length / 20)]) + "): ";
-   labelExtHigh = ' Extremely high (higher than/equal as ' + varSeries[18 * Math.round(varSeries.length / 20)] + "): ";
+   labelDefault = 'Missing Data:';
+   labelExtLow = 'Extremely low (lower than ' + varSeries[2 * Math.round(varSeries.length / 20)] + "):";
+   labelVeryLow = 'Very low (' + varSeries[2 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[5 * Math.round(varSeries.length / 20)]) + "):";
+   labelLow = 'Low (' + varSeries[5 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[8 * Math.round(varSeries.length / 20)]) + "):";
+   labelMedium = 'Medium (' + varSeries[8 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[12 * Math.round(varSeries.length / 20)]) + "):";
+   labelHigh = 'High (' + varSeries[12 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[15 * Math.round(varSeries.length / 20)]) + "):";
+   labelVeryHigh = 'Very high (' + varSeries[15 * Math.round(varSeries.length / 20)] + ' - ' + (varSeries[18 * Math.round(varSeries.length / 20)]) + "):";
+   labelExtHigh = 'Extremely high (higher than/equal as ' + varSeries[18 * Math.round(varSeries.length / 20)] + "): ";
 
    // add legend
    worldDatamap.legend({
