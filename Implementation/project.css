@@ -59,8 +59,8 @@ body {
 
 #worldMap {
   height: 500px;
-  width: 1180px;
-  margin-bottom: 110px;
+  width: 1200px;
+  margin-bottom: 120px;
   text-align: center;
   font: sans-serif;
   font-size: 20px;
@@ -70,7 +70,7 @@ body {
 
 #graph, #scatterplot {
   height: 550px;
-  width: 1180px;
+  width: 1200px;
   text-align: center;
   font: sans-serif;
   font-size: 16px;

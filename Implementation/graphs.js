@@ -9,8 +9,8 @@
 function createGraph(graphObject, textX, textY)
 {
   // define margins
-  var margin = {top: 50, right: 315, bottom: 120, left: 100},
-      width = 1150 - margin.left - margin.right,
+  var margin = {top: 50, right: 300, bottom: 120, left: 100},
+      width = 1350 - margin.left - margin.right,
       height = 550 - margin.top - margin.bottom;
 
   // define x-pixel-scaling
@@ -67,7 +67,7 @@ function createGraph(graphObject, textX, textY)
     .append("text")
       .attr("transform", "rotate(0)")
       .attr("y", 60)
-      .attr("x", 823)
+      .attr("x", 950)
       .attr("dy", "0em")
       .attr("dx", "-.50em")
       .style("text-anchor", "end")

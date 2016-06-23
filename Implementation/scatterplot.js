@@ -10,7 +10,7 @@ function createPlot(plotObject, textX, textY)
 {
   // define margins
   var margin = {top: 50, right: 300, bottom: 120, left: 100},
-      width = 1150 - margin.left - margin.right,
+      width = 1300 - margin.left - margin.right,
       height = 550 - margin.top - margin.bottom;
 
   // define x-pixel-scaling
@@ -60,7 +60,7 @@ function createPlot(plotObject, textX, textY)
     .append("text")
       .attr("transform", "rotate(0)")
       .attr("y", 55)
-      .attr("x", 765)
+      .attr("x", 915)
       .attr("dy", "0em")
       .attr("dx", "-.50em")
       .style("text-anchor", "end")
@@ -197,13 +197,13 @@ function createPlot(plotObject, textX, textY)
     .text("Equation: " + decimalFormat(leastSquaresCoeff.slope) + "x + "
      + decimalFormat(leastSquaresCoeff.intercept))
       .attr("class", "text-label")
-      .attr("x", function(d) {return 770;})
+      .attr("x", function(d) {return 920;})
       .attr("y", function(d) {return y(y2) - 20;});
 
   // display r-square on the chart
   main.append("text")
     .text("R squared: " + decimalFormat(leastSquaresCoeff.rSquared))
       .attr("class", "text-label")
-      .attr("x", function(d) {return 770;})
+      .attr("x", function(d) {return 920;})
       .attr("y", function(d) {return y(y2);});
 }
